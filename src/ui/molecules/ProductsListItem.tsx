@@ -2,20 +2,12 @@ import type { ProductListItemProps } from "./type";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { ProductListItemDescription } from "@/ui/atoms/ProductListItemDescription";
 
-export const ProductListItem = ({
-	product: { category, coverImage, name, price },
-}: ProductListItemProps) => {
+export const ProductListItem = ({ product }: ProductListItemProps) => {
 	return (
 		<li>
 			<article>
-				<ProductCoverImage {...coverImage} />
-				<ProductListItemDescription
-					product={{
-						name,
-						category,
-						price,
-					}}
-				/>
+				<ProductCoverImage {...product.coverImage} />
+				<ProductListItemDescription product={product} />
 			</article>
 		</li>
 	);
