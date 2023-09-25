@@ -5,6 +5,7 @@
 	"editor.codeActionsOnSave": {
 		"source.fixAll": true
 	},
+	"typescript.suggest.autoImports": true,
 	"graphql-config.dotEnvPath": "./.env",
 	"graphql-config.load.configName": "graphql",
 	"files.associations": {
@@ -12,5 +13,8 @@
 	},
 	"editor.quickSuggestions": {
 		"strings": true
+	},
+	"[typescriptreact]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	}
 }
