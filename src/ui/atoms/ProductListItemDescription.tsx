@@ -1,7 +1,10 @@
 import { type ProductListItemProps } from "@/ui/molecules/type";
+
+type ProductListItemDescriptionProps = Omit<ProductListItemProps, "coverImage">;
+
 export const ProductListItemDescription = ({
 	product: { name, category, price },
-}: ProductListItemProps) => {
+}: ProductListItemDescriptionProps) => {
 	return (
 		<div className="mt-2 flex justify-between">
 			<div>
