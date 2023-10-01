@@ -1,18 +1,19 @@
-import type { ProductItemType } from "./type";
+import Link from "next/link";
+import type { ProductListItemProps } from "@/ui/molecules/type";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { ProductListItemDescription } from "@/ui/atoms/ProductListItemDescription";
 
-type ProductListItemProps = {
-	product: ProductItemType;
-};
-
 export const ProductListItem = ({ product }: ProductListItemProps) => {
+	console.log(product.id);
+
 	return (
 		<li>
-			<article>
-				<ProductCoverImage {...product.coverImage} />
-				<ProductListItemDescription product={product} />
-			</article>
+			<Link href={`/products/${product.id}`}>
+				<article>
+					<ProductCoverImage {...product.coverImage} />
+					<ProductListItemDescription product={product} />
+				</article>
+			</Link>
 		</li>
 	);
 };

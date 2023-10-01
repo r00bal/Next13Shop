@@ -8,3 +8,7 @@ export type ProductItemType = {
 		alt: string;
 	};
 };
+
+export type ProductListItemProps = {
+	product: ProductItemType;
+};

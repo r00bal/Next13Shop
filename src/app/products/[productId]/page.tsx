@@ -1,7 +1,11 @@
-export default function ProductPage({
+import { getProductById } from "@/api/products";
+
+export default async function ProductPage({
 	params,
 }: {
 	params: { productId: string };
 }) {
-	return <h1>Product {params.productId}</h1>;
+	const product = await getProductById(params.productId);
+
+	return <h1>Product {product.name}</h1>;
 }
