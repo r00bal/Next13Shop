@@ -11,7 +11,7 @@ export const Navbar = () => {
 				</li>
 				<li key="products">
 					<ActiveLink exact href="/products">
-						Products
+						All
 					</ActiveLink>
 				</li>
 			</ul>

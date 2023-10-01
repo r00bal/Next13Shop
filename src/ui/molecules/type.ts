@@ -1,12 +1,10 @@
-export type ProductListItemProps = {
-	product: {
-		id: string;
-		name: string;
-		category: string;
-		price: number;
-		coverImage: {
-			src: string;
-			alt: string;
-		};
+export type ProductItemType = {
+	id: string;
+	name: string;
+	category: string;
+	price: number;
+	coverImage: {
+		src: string;
+		alt: string;
 	};
 };
