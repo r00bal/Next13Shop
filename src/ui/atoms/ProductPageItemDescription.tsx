@@ -4,8 +4,8 @@ export const ProductPageItemDescription = ({
 	product: { name, category, price, description },
 }: ProductPageItemProps) => {
 	return (
-		<div className="px-6">
-			<h1 className="flex-auto text-3xl font-bold tracking-tight text-slate-900">
+		<div className="flex flex-col px-6">
+			<h1 className="text-3xl font-bold tracking-tight text-slate-900">
 				{name}
 			</h1>
 			<span>{category}</span>
@@ -36,11 +36,11 @@ export const ProductPageItemDescription = ({
 				</svg>
 				<p className="ml-1 text-sm font-semibold text-slate-500">In stock</p>
 			</div>
-			<div className="mt-8">
+			<div className="mt-auto">
 				<button
 					type="submit"
 					data-testid="add-to-cart-button"
-					className="inline-flex h-14 w-full items-center justify-center rounded-md from-[#1e4b65] from-20% via-[#010315] to-[#0b237d] to-80% px-6 text-base font-medium leading-6 text-white shadow transition duration-150 ease-in-out enabled:bg-gradient-to-r hover:enabled:brightness-125 disabled:cursor-wait disabled:bg-gray-300"
+					className="inline-flex h-14 w-full items-center justify-center rounded-md from-[#1e4b65] from-20% via-[#010315] to-[#0b237d] to-80% px-6  text-base font-medium leading-6 text-white shadow transition duration-150 ease-in-out enabled:bg-gradient-to-r hover:enabled:brightness-125 disabled:cursor-wait disabled:bg-gray-300"
 				>
 					Add to cart
 				</button>
