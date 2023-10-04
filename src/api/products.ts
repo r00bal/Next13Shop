@@ -1,9 +1,14 @@
 import { type ProductResponseItem } from "@/api/type";
 import type { ProductItemType } from "@/ui/molecules/type";
 
-export const getProductsList = async (): Promise<ProductItemType[]> => {
+type getProductsListProps = {
+	take?: number;
+};
+export const getProductsList = async ({
+	take = 20,
+}: getProductsListProps): Promise<ProductItemType[]> => {
 	const res = await fetch(
-		"https://naszsklep-api.vercel.app/api/products?take=20",
+		`https://naszsklep-api.vercel.app/api/products?take=${take}`,
 	);
 	const productsResponse = (await res.json()) as ProductResponseItem[];
 	const products = productsResponse.map(
