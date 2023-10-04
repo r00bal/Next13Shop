@@ -23,12 +23,13 @@ export const getProductById = async (id: string): Promise<ProductItemType> => {
 const mapProductResponseItemToProductItemType = (
 	product: ProductResponseItem,
 ): ProductItemType => {
-	const { id, category, image, price, title } = product;
+	const { id, category, image, price, title, description } = product;
 	return {
 		id,
 		category,
 		name: title,
 		price,
+		description,
 		coverImage: {
 			src: image,
 			alt: title,
