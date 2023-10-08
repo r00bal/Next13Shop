@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Suspense } from "react";
 import { type ChildrenType } from "./types";
 import { Navbar } from "@/ui/organisms/Navbar";
 
@@ -17,9 +16,7 @@ export default function RootLayout({ children }: ChildrenType) {
 		<html lang="pl">
 			<body className={inter.className}>
 				<Navbar />
-				<main>
-					<Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-				</main>
+				<main>{children}</main>
 				<footer>
 					<p className="text-center"> All rights reserved</p>{" "}
 				</footer>

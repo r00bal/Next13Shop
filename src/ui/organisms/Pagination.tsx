@@ -1,6 +1,6 @@
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
 
-export const Pagination = ({ pages }: { pages: number }) => {
+export const Pagination = ({ pages }: { pages: number[] }) => {
 	return (
 		<nav
 			className="mt-auto flex items-center justify-center border-t border-slate-200 px-4"
@@ -8,7 +8,7 @@ export const Pagination = ({ pages }: { pages: number }) => {
 			aria-label="Pagination Navigation"
 		>
 			<ul className="-mt-px flex">
-				{Array.from({ length: pages }, (_, i) => i + 1).map((page) => (
+				{pages.map((page) => (
 					<li key={page}>
 						<ActiveLink
 							className="inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium"

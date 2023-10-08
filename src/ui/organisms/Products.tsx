@@ -1,6 +1,7 @@
 import { Pagination } from "./Pagination";
 import { ProductList } from "./ProductList";
-import { getProductsList } from "@/api/products";
+import { getProductsList, PRODUCTS_TO_TAKE } from "@/api";
+import { getPages } from "@/utils";
 
 type ProductsProps = {
 	pageNumber: number;
@@ -10,7 +11,7 @@ export const Products = async ({ pageNumber }: ProductsProps) => {
 		take: PRODUCTS_TO_TAKE,
 		page: pageNumber || 1,
 	});
-	const pages = Math.ceil(total / PRODUCTS_TO_TAKE);
+	const pages = getPages(total, PRODUCTS_TO_TAKE);
 
 	return (
 		<>
@@ -19,5 +20,3 @@ export const Products = async ({ pageNumber }: ProductsProps) => {
 		</>
 	);
 };
-
-const PRODUCTS_TO_TAKE = 4;
