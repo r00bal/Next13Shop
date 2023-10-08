@@ -1,4 +1,5 @@
 import React from "react";
+import { FaSpinner } from "react-icons/fa";
 
 type SpinnerProps = {
 	size?: number;
@@ -6,14 +7,9 @@ type SpinnerProps = {
 };
 
 export const Spinner = ({ size = 24, color = "gray" }: SpinnerProps) => {
-	const spinnerStyle = {
-		width: `${size}px`,
-		height: `${size}px`,
-		border: `${size / 8}px solid ${color}`,
-		borderTopColor: "transparent",
-		borderRadius: "50%",
-		animation: "spin 1s linear infinite",
-	};
-
-	return <div style={spinnerStyle} className="mx-auto"></div>;
+	return (
+		<div className="flex items-center justify-center">
+			<FaSpinner className={`animate-spin text-${color}-500`} size={size} />
+		</div>
+	);
 };
