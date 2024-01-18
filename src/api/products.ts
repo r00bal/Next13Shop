@@ -32,7 +32,7 @@ export const getProductsList = async (): Promise<ProductItemType[]> => {
 					}
 				`,
 			}),
-
+			// test
 			headers: {
 				"Content-Type": "application/json",
 			},
