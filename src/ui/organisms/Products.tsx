@@ -7,10 +7,8 @@ type ProductsProps = {
 	pageNumber: number;
 };
 export const Products = async ({ pageNumber }: ProductsProps) => {
-	const { products, total } = await getProductsList({
-		take: PRODUCTS_TO_TAKE,
-		page: pageNumber || 1,
-	});
+	const products = await getProductsList();
+	const total = 14;
 	const pages = getPages(total, PRODUCTS_TO_TAKE);
 
 	return (
