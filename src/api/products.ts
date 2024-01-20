@@ -1,9 +1,7 @@
 import { BASE_URL } from "./const";
-import {
-	type GraphQLResponse,
-	type ProductsGraphqlResponse,
-	type ProductResponseItem,
-} from "@/api/type";
+import { executeGraphql } from "./utils";
+import { type ProductResponseItem } from "@/api/type";
+import { ProductsGetListDocument } from "@/gql/graphql";
 import type { ProductItemType } from "@/ui/molecules/type";
 
 export const getAllProductsNumber = async (): Promise<number> => {
@@ -12,50 +10,18 @@ export const getAllProductsNumber = async (): Promise<number> => {
 	return productsNumber;
 };
 
-
 export const getProductsList = async (): Promise<ProductItemType[]> => {
-	const res = await fetch(
-		`https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/clrdf6g02000008l23scghxpk/master`,
-		{
-			method: "POST",
-			body: JSON.stringify({
-				query: /* GraphQL */ `
-					query GetProductList {
-						products(first: 10) {
-							id
-							name
-							description
-							images {
-								url
-							}
-							price
-						}
-					}
-				`,
-			}),
-			// test
-			headers: {
-				"Content-Type": "application/json",
-			},
-		},
-	);
-	console.log(res);
+	const grapglResponse = await executeGraphql(ProductsGetListDocument, {});
 
-	const grapglResponse =
-		(await res.json()) as GraphQLResponse<ProductsGraphqlResponse>;
-	if (grapglResponse.errors) {
-		throw new Error(grapglResponse.errors[0].message);
-	}
-
-	return grapglResponse.data.products.map((product) => {
+	return grapglResponse.products.map((product) => {
 		return {
 			id: product.id,
-			category: "",
+			category: product.categories[0]?.name || "",
 			name: product.name,
 			price: product.price,
 			description: product.description,
-			coverImage: {
-				src: product.images[0].url,
+			coverImage: product.images[0] && {
+				src: product.images[0]?.url,
 				alt: product.name,
 			},
 		};

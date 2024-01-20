@@ -18,7 +18,7 @@ export default async function ProductPage({
 
 	return (
 		<article className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-			<ProductCoverImage {...product.coverImage} />
+			{product?.coverImage && <ProductCoverImage {...product.coverImage} />}
 			<ProductPageItemDescription product={product} />
 		</article>
 	);
