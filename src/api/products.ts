@@ -12,6 +12,7 @@ export const getAllProductsNumber = async (): Promise<number> => {
 	return productsNumber;
 };
 
+
 export const getProductsList = async (): Promise<ProductItemType[]> => {
 	const res = await fetch(
 		`https://api-eu-central-1-shared-euc1-02.hygraph.com/v2/clrdf6g02000008l23scghxpk/master`,
