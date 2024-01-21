@@ -10,6 +10,7 @@ export const Products = async ({ pageNumber }: ProductsProps) => {
 	const products = await getProductsList();
 	const total = 14;
 	const pages = getPages(total, PRODUCTS_TO_TAKE);
+	console.log(pageNumber);
 
 	return (
 		<>

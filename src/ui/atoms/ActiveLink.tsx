@@ -1,29 +1,38 @@
 "use client";
-import Link, { type LinkProps } from "next/link";
+import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
+import { type Route } from "next";
+import { type ReactNode } from "react";
 
 type ActiveLinkProps<T extends string> = {
-	children: React.ReactNode;
+	href: Route<T>;
+	children: ReactNode;
+	exact?: boolean;
 	className?: string;
 	activeClassName?: string;
-	exact?: boolean;
-} & LinkProps<T>;
+};
 
 export const ActiveLink = <T extends string>({
 	children,
 	href,
+	exact = true,
 	className = "text-blue-400 hover:text-blue-600",
 	activeClassName = "underline",
 	...props
 }: ActiveLinkProps<T>) => {
 	const pathname = usePathname();
 
-	const isActive =
-		pathname === href || (!props.exact && typeof href === "string" && pathname.startsWith(href));
+	const isActive = exact
+		? pathname === href
+		: typeof href === "string" && pathname.startsWith(href);
 
 	return (
-		<Link {...props} href={href} className={clsx(className, isActive && activeClassName)}>
+		<Link
+			{...props}
+			href={href}
+			className={clsx(className, isActive && activeClassName)}
+		>
 			{children}
 		</Link>
 	);

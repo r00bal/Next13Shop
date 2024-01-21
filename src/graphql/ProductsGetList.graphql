@@ -12,4 +12,9 @@ query ProductsGetList {
 		}
 		price
 	}
+	productsConnection {
+		aggregate {
+			count
+		}
+	}
 }

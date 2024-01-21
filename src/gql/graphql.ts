@@ -10766,7 +10766,14 @@ export type _SystemDateTimeFieldVariation =
 export type ProductsGetListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ProductsGetListQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ id: string, name: string }>, images: Array<{ url: string }> }> };
+export type ProductsGetListQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ id: string, name: string }>, images: Array<{ url: string }> }>, productsConnection: { aggregate: { count: number } } };
+
+export type ProductsGetListByCategorySlugQueryVariables = Exact<{
+  slug: Scalars['String']['input'];
+}>;
+
+
+export type ProductsGetListByCategorySlugQuery = { categories: Array<{ products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ id: string, name: string }>, images: Array<{ url: string }> }> }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10798,5 +10805,29 @@ export const ProductsGetListDocument = new TypedDocumentString(`
     }
     price
   }
+  productsConnection {
+    aggregate {
+      count
+    }
+  }
 }
     `) as unknown as TypedDocumentString<ProductsGetListQuery, ProductsGetListQueryVariables>;
+export const ProductsGetListByCategorySlugDocument = new TypedDocumentString(`
+    query ProductsGetListByCategorySlug($slug: String!) {
+  categories(where: {slug: $slug}) {
+    products(first: 10) {
+      id
+      name
+      description
+      categories(first: 1) {
+        id
+        name
+      }
+      images(first: 1) {
+        url
+      }
+      price
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ProductsGetListByCategorySlugQuery, ProductsGetListByCategorySlugQueryVariables>;
