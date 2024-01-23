@@ -1,13 +1,40 @@
 import { BASE_URL } from "./const";
 import { executeGraphql } from "./utils";
 import { type ProductResponseItem } from "@/api/type";
-import { ProductsGetListDocument } from "@/gql/graphql";
+import {
+	ProductsGetListByCategorySlugDocument,
+	ProductsGetListDocument,
+} from "@/gql/graphql";
 import type { ProductItemType } from "@/ui/molecules/type";
 
 export const getAllProductsNumber = async (): Promise<number> => {
 	const res = await fetch(`${BASE_URL}/products`);
 	const productsNumber = ((await res.json()) as ProductResponseItem[]).length;
 	return productsNumber;
+};
+
+export const getProductsListByCategory = async (
+	category?: string,
+): Promise<ProductItemType[]> => {
+	const grapglResponse = await executeGraphql(
+		ProductsGetListByCategorySlugDocument,
+		{ slug: category },
+	);
+	return grapglResponse.categories[0]?.products
+		? grapglResponse.categories[0]?.products.map((product) => {
+				return {
+					id: product.id,
+					category: product.categories[0]?.name || "",
+					name: product.name,
+					price: product.price,
+					description: product.description,
+					coverImage: product.images[0] && {
+						src: product.images[0]?.url,
+						alt: product.name,
+					},
+				};
+		  })
+		: [];
 };
 
 export const getProductsList = async (): Promise<ProductItemType[]> => {
@@ -33,6 +60,8 @@ export const getProductById = async (id: string): Promise<ProductItemType> => {
 	const productsResponse = (await res.json()) as ProductResponseItem;
 	return mapProductResponseItemToProductItemType(productsResponse);
 };
+
+const mapProductResponseToProduct = () => {};
 
 const mapProductResponseItemToProductItemType = (
 	product: ProductResponseItem,

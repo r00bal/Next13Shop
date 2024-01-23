@@ -16,11 +16,11 @@ export default async function ProductsPage({
 	params: { category: string; pageNumber: string };
 }) {
 	console.log({ params });
-
 	const pageNumber = Number(params.pageNumber);
+
 	return (
 		<Suspense fallback={<Spinner size={32} color="blue" />}>
-			<Products pageNumber={pageNumber} />
+			<Products pageNumber={pageNumber} category={params.category} />
 		</Suspense>
 	);
 }
