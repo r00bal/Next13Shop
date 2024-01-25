@@ -1,20 +1,5 @@
 query ProductsGetList {
 	products(first: 10) {
-		id
-		name
-		description
-		categories(first: 1) {
-			id
-			name
-		}
-		images(first: 1) {
-			url
-		}
-		price
-	}
-	productsConnection {
-		aggregate {
-			count
-		}
+		...ProductListItem
 	}
 }

@@ -1,0 +1,7 @@
+query CategoriesGetQuantityBySlug($slug: String!) {
+  categoriesConnection(where: {slug: $slug}) {
+    aggregate {
+      count
+    }
+  }
+}
