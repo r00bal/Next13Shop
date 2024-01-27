@@ -23,7 +23,6 @@ export const ActiveLink = <T extends string>({
 	...props
 }: ActiveLinkProps<T>) => {
 	const pathname = usePathname();
-	console.log({ pathname, href });
 
 	const isActive = exact
 		? pathname === href

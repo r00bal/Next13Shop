@@ -4,6 +4,8 @@ import { ProductPageItemDescription } from "@/ui/atoms/ProductPageItemDescriptio
 
 export async function generateStaticParams() {
 	const products = await getProductsList({});
+	console.log(products);
+
 	return products.map((product) => ({ productId: product.id }));
 }
 

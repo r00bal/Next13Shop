@@ -1,14 +1,20 @@
-import { type ProductPageItemProps } from "../molecules/type";
+import { type ProductListItemFragment } from "@/gql/graphql";
 
+type ProductPageItemProps = {
+	product: Pick<
+		ProductListItemFragment,
+		"name" | "categories" | "price" | "description"
+	>;
+};
 export const ProductPageItemDescription = ({
-	product: { name, category, price, description },
+	product: { name, categories, price, description },
 }: ProductPageItemProps) => {
 	return (
 		<div className="flex flex-col px-6">
 			<h1 className="text-3xl font-bold tracking-tight text-slate-900">
 				{name}
 			</h1>
-			<span>{category}</span>
+			<span>{categories.map(({ name }) => name)}</span>
 			<div className="mt-4 flex items-center">
 				<div className="font-base small-caps text-lg text-slate-800">
 					{price} zł
