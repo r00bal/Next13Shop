@@ -1,0 +1,8 @@
+query ProductsGetListWithBestRatings($first: Int) {
+	reviews(orderBy: rating_DESC, first: $first) {
+		rating
+		product {
+			...ProductListItem
+		}
+	}
+}

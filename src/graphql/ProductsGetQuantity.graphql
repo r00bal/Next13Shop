@@ -1,7 +1,7 @@
-query ProductsGetQuantity  {
-   productsConnection {
- aggregate {
-       count
-     } 
-   }
+query ProductsGetQuantity {
+  productsConnection {
+    aggregate {
+      count
+    }
+  }
 }

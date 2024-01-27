@@ -12,12 +12,17 @@ query ProductGetById($id: ID!) {
     images(first: 5) {
       url
       id
+       
     }
     reviews(first: 10, orderBy: id_ASC) {
       id
       content
       name
       rating
+      createdBy {
+         name
+      }
+       createdAt
     }
   }
 }

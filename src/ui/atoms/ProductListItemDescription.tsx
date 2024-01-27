@@ -1,7 +1,11 @@
-import type { ProductListItemProps } from "@/ui/molecules/type";
+import { type ProductListItemFragment } from "@/gql/graphql";
+
+type ProductListItemProps = {
+	product: Pick<ProductListItemFragment, "name" | "categories" | "price">;
+};
 
 export const ProductListItemDescription = ({
-	product: { name, category, price },
+	product: { name, categories, price },
 }: ProductListItemProps) => {
 	return (
 		<div className="mt-2 flex justify-between">
@@ -11,7 +15,7 @@ export const ProductListItemDescription = ({
 					className="text-sm font-medium text-gray-500"
 					data-testid="product-category"
 				>
-					{category}
+					{categories[0]?.name}
 				</p>
 			</div>
 			<p

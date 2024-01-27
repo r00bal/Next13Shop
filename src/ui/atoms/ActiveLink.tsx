@@ -1,4 +1,5 @@
 "use client";
+import { log } from "console";
 import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
@@ -22,6 +23,7 @@ export const ActiveLink = <T extends string>({
 	...props
 }: ActiveLinkProps<T>) => {
 	const pathname = usePathname();
+	console.log({ pathname, href });
 
 	const isActive = exact
 		? pathname === href

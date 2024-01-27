@@ -1,81 +1,82 @@
-import { BASE_URL } from "./const";
 import { executeGraphql } from "./utils";
-import { type ProductResponseItem } from "@/api/type";
 import {
+	CategoriesGetQuantityBySlugDocument,
+	ProductGetByIdDocument,
 	ProductsGetListByCategorySlugDocument,
 	ProductsGetListDocument,
+	type ProductsGetListQueryVariables,
+	ProductsGetQuantityDocument,
+	type ProductsGetListByCategorySlugQueryVariables,
+	type CategoriesGetQuantityBySlugQueryVariables,
+	type ProductGetByIdQueryVariables,
+	ProductsGetListWithBestRatingsDocument,
+	type ProductsGetListWithBestRatingsQueryVariables,
+	type ProductListItemFragment,
 } from "@/gql/graphql";
-import type { ProductItemType } from "@/ui/molecules/type";
 
-export const getAllProductsNumber = async (): Promise<number> => {
-	const res = await fetch(`${BASE_URL}/products`);
-	const productsNumber = ((await res.json()) as ProductResponseItem[]).length;
-	return productsNumber;
-};
-
-export const getProductsListByCategory = async (
-	category?: string,
-): Promise<ProductItemType[]> => {
+export const getProductsListByCategory = async ({
+	first,
+	skip,
+	slug,
+}: ProductsGetListByCategorySlugQueryVariables) => {
 	const grapglResponse = await executeGraphql(
 		ProductsGetListByCategorySlugDocument,
-		{ slug: category },
+		{ first, skip, slug },
 	);
 	return grapglResponse.categories[0]?.products
-		? grapglResponse.categories[0]?.products.map((product) => {
-				return {
-					id: product.id,
-					category: product.categories[0]?.name || "",
-					name: product.name,
-					price: product.price,
-					description: product.description,
-					coverImage: product.images[0] && {
-						src: product.images[0]?.url,
-						alt: product.name,
-					},
-				};
-		  })
+		? grapglResponse.categories[0].products
 		: [];
 };
 
-export const getProductsList = async (): Promise<ProductItemType[]> => {
-	const grapglResponse = await executeGraphql(ProductsGetListDocument, {});
-
-	return grapglResponse.products.map((product) => {
-		return {
-			id: product.id,
-			category: product.categories[0]?.name || "",
-			name: product.name,
-			price: product.price,
-			description: product.description,
-			coverImage: product.images[0] && {
-				src: product.images[0]?.url,
-				alt: product.name,
-			},
-		};
+export const getProductsList = async ({
+	first,
+	skip,
+}: ProductsGetListQueryVariables) => {
+	const grapglResponse = await executeGraphql(ProductsGetListDocument, {
+		first,
+		skip,
 	});
+	return grapglResponse.products;
 };
 
-export const getProductById = async (id: string): Promise<ProductItemType> => {
-	const res = await fetch(`${BASE_URL}/products/${id}`);
-	const productsResponse = (await res.json()) as ProductResponseItem;
-	return mapProductResponseItemToProductItemType(productsResponse);
-};
-
-const mapProductResponseToProduct = () => {};
-
-const mapProductResponseItemToProductItemType = (
-	product: ProductResponseItem,
-): ProductItemType => {
-	const { id, category, image, price, title, description } = product;
-	return {
-		id,
-		category,
-		name: title,
-		price,
-		description,
-		coverImage: {
-			src: image,
-			alt: title,
+export const getProductsListWithBestRatings = async ({
+	first,
+}: ProductsGetListWithBestRatingsQueryVariables) => {
+	const grapglResponse = await executeGraphql(
+		ProductsGetListWithBestRatingsDocument,
+		{
+			first,
 		},
-	} as ProductItemType;
+	);
+
+	const products = grapglResponse?.reviews
+		? grapglResponse.reviews
+				.map((review) => review?.product)
+				.filter(
+					(product): product is ProductListItemFragment => product != null,
+				)
+		: [];
+	return products;
+};
+
+export const getProductsTotal = async () => {
+	const grapglResponse = await executeGraphql(ProductsGetQuantityDocument, {});
+	return grapglResponse.productsConnection.aggregate.count;
+};
+
+export const getProductsTotalByCategory = async (
+	slug: CategoriesGetQuantityBySlugQueryVariables["slug"],
+) => {
+	const grapglResponse = await executeGraphql(
+		CategoriesGetQuantityBySlugDocument,
+		{ slug },
+	);
+	return grapglResponse.categoriesConnection.aggregate.count;
+};
+
+export const getProductById = async (
+	id: ProductGetByIdQueryVariables["id"],
+) => {
+	const grapglResponse = await executeGraphql(ProductGetByIdDocument, { id });
+	return grapglResponse.product;
 };

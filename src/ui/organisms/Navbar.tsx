@@ -7,9 +7,9 @@ type NavLinkType = {
 const navLinks: NavLinkType[] = [
 	{ href: "/", label: "Home" },
 	{ href: "/products/", label: "All" },
-	{ href: `/categories/t-shirts` as Route<string>, label: "t-shirts" },
-	{ href: "/categories/hoodies" as Route<string>, label: "hoodies" },
-	{ href: "/categories/accessories" as Route<string>, label: "accessories" },
+	{ href: `/categories/t-shirts` as Route<string>, label: "T-shirts" },
+	{ href: "/categories/hoodies" as Route<string>, label: "Hoodies" },
+	{ href: "/categories/accessories" as Route<string>, label: "Accessories" },
 ];
 
 export const Navbar = () => {
@@ -18,7 +18,7 @@ export const Navbar = () => {
 			<ul className="flex justify-center space-x-4">
 				{navLinks.map(({ href, label }) => (
 					<li key="home">
-						<ActiveLink exact href={href}>
+						<ActiveLink exact={href === "/"} href={href}>
 							{label}
 						</ActiveLink>
 					</li>
