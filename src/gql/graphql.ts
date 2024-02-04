@@ -10801,7 +10801,7 @@ export type ProductsGetListWithBestRatingsQueryVariables = Exact<{
 }>;
 
 
-export type ProductsGetListWithBestRatingsQuery = { reviews: Array<{ rating: number, product?: { id: string, name: string, description: string, price: number, categories: Array<{ id: string, name: string }>, images: Array<{ url: string }> } | null }> };
+export type ProductsGetListWithBestRatingsQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ id: string, name: string }>, images: Array<{ url: string }> }> };
 
 export type ProductsGetQuantityQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -10917,11 +10917,8 @@ export const ProductsGetListByCategorySlugDocument = new TypedDocumentString(`
 }`) as unknown as TypedDocumentString<ProductsGetListByCategorySlugQuery, ProductsGetListByCategorySlugQueryVariables>;
 export const ProductsGetListWithBestRatingsDocument = new TypedDocumentString(`
     query ProductsGetListWithBestRatings($first: Int) {
-  reviews(orderBy: rating_DESC, first: $first) {
-    rating
-    product {
-      ...ProductListItem
-    }
+  products(where: {reviews_some: {rating_gte: 4}}, first: $first) {
+    ...ProductListItem
   }
 }
     fragment ProductListItem on Product {

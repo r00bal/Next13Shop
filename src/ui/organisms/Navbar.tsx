@@ -6,7 +6,7 @@ type NavLinkType = {
 };
 const navLinks: NavLinkType[] = [
 	{ href: "/", label: "Home" },
-	{ href: "/products/", label: "All" },
+	{ href: "/products", label: "All" },
 	{ href: `/categories/t-shirts` as Route<string>, label: "T-shirts" },
 	{ href: "/categories/hoodies" as Route<string>, label: "Hoodies" },
 	{ href: "/categories/accessories" as Route<string>, label: "Accessories" },

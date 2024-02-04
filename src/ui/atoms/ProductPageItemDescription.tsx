@@ -1,10 +1,7 @@
-import { type ProductListItemFragment } from "@/gql/graphql";
+import { type ProductGetByIdQuery } from "@/gql/graphql";
 
 type ProductPageItemProps = {
-	product: Pick<
-		ProductListItemFragment,
-		"name" | "categories" | "price" | "description"
-	>;
+	product: NonNullable<ProductGetByIdQuery["product"]>;
 };
 export const ProductPageItemDescription = ({
 	product: { name, categories, price, description },

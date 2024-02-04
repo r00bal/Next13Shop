@@ -21,7 +21,7 @@ export default async function ProductPage({
 			{product?.images[0]?.url && (
 				<ProductCoverImage alt={product.name} src={product?.images[0]?.url} />
 			)}
-			<ProductPageItemDescription product={product} />
+			{product && <ProductPageItemDescription product={product} />}
 		</article>
 	);
 }

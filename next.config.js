@@ -3,11 +3,18 @@ const nextConfig = {
 	experimental: {
 		typedRoutes: true,
 	},
-
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "media.graphassets.com",
+			},
+		],
+	},
 	async redirects() {
 		return [
 			{
-				source: "/products/",
+				source: "/products",
 				destination: "/products/1",
 				permanent: true,
 			},

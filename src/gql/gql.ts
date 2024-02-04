@@ -19,7 +19,7 @@ const documents = {
     "fragment ProductListItem on Product {\n  id\n  name\n  description\n  categories(first: 1) {\n    id\n    name\n  }\n  images(first: 1) {\n    url\n  }\n  price\n}": types.ProductListItemFragmentDoc,
     "query ProductsGetList($first: Int, $skip: Int) {\n  products(first: $first, skip: $skip) {\n    ...ProductListItem\n  }\n}": types.ProductsGetListDocument,
     "query ProductsGetListByCategorySlug($first: Int!, $skip: Int!, $slug: String!) {\n  categories(where: {slug: $slug}) {\n    products(first: $first, skip: $skip) {\n      ...ProductListItem\n    }\n  }\n}": types.ProductsGetListByCategorySlugDocument,
-    "query ProductsGetListWithBestRatings($first: Int) {\n  reviews(orderBy: rating_DESC, first: $first) {\n    rating\n    product {\n      ...ProductListItem\n    }\n  }\n}": types.ProductsGetListWithBestRatingsDocument,
+    "query ProductsGetListWithBestRatings($first: Int) {\n  products(where: {reviews_some: {rating_gte: 4}}, first: $first) {\n    ...ProductListItem\n  }\n}": types.ProductsGetListWithBestRatingsDocument,
     "query ProductsGetQuantity {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsGetQuantityDocument,
 };
 
@@ -46,7 +46,7 @@ export function graphql(source: "query ProductsGetListByCategorySlug($first: Int
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductsGetListWithBestRatings($first: Int) {\n  reviews(orderBy: rating_DESC, first: $first) {\n    rating\n    product {\n      ...ProductListItem\n    }\n  }\n}"): typeof import('./graphql').ProductsGetListWithBestRatingsDocument;
+export function graphql(source: "query ProductsGetListWithBestRatings($first: Int) {\n  products(where: {reviews_some: {rating_gte: 4}}, first: $first) {\n    ...ProductListItem\n  }\n}"): typeof import('./graphql').ProductsGetListWithBestRatingsDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

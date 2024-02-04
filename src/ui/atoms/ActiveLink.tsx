@@ -1,5 +1,4 @@
 "use client";
-import { log } from "console";
 import Link from "next/link";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";

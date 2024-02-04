@@ -1,8 +1,5 @@
 query ProductsGetListWithBestRatings($first: Int) {
-	reviews(orderBy: rating_DESC, first: $first) {
-		rating
-		product {
-			...ProductListItem
-		}
+	products(where: { reviews_some: { rating_gte: 4 } }, first: $first) {
+		...ProductListItem
 	}
 }

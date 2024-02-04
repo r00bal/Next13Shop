@@ -11,7 +11,6 @@ import {
 	type ProductGetByIdQueryVariables,
 	ProductsGetListWithBestRatingsDocument,
 	type ProductsGetListWithBestRatingsQueryVariables,
-	type ProductListItemFragment,
 } from "@/gql/graphql";
 
 export const getProductsListByCategory = async ({
@@ -49,16 +48,8 @@ export const getProductsListWithBestRatings = async ({
 		},
 	);
 
-	const products = grapglResponse?.reviews
-		? grapglResponse.reviews
-				.map((review) => review?.product)
-				.filter(
-					(product): product is ProductListItemFragment => product != null,
-				)
-		: [];
-	return products;
+	return grapglResponse?.products ? grapglResponse.products : [];
 };
-
 export const getProductsTotal = async () => {
 	const grapglResponse = await executeGraphql(ProductsGetQuantityDocument, {});
 	return grapglResponse.productsConnection.aggregate.count;
