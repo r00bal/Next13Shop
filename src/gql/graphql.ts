@@ -10770,6 +10770,11 @@ export type CategoriesGetQuantityBySlugQueryVariables = Exact<{
 
 export type CategoriesGetQuantityBySlugQuery = { categoriesConnection: { aggregate: { count: number } } };
 
+export type CollectionsGetListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CollectionsGetListQuery = { collections: Array<{ id: string, slug: string, description?: string | null, name: string, image: { url: string, width?: number | null } }> };
+
 export type ProductGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
@@ -10846,6 +10851,20 @@ export const CategoriesGetQuantityBySlugDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CategoriesGetQuantityBySlugQuery, CategoriesGetQuantityBySlugQueryVariables>;
+export const CollectionsGetListDocument = new TypedDocumentString(`
+    query CollectionsGetList {
+  collections {
+    id
+    slug
+    description
+    name
+    image {
+      url
+      width
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<CollectionsGetListQuery, CollectionsGetListQueryVariables>;
 export const ProductGetByIdDocument = new TypedDocumentString(`
     query ProductGetById($id: ID!) {
   product(where: {id: $id}) {

@@ -15,6 +15,7 @@ import * as types from './graphql';
  */
 const documents = {
     "query CategoriesGetQuantityBySlug($slug: String!) {\n  categoriesConnection(where: {slug: $slug}) {\n    aggregate {\n      count\n    }\n  }\n}": types.CategoriesGetQuantityBySlugDocument,
+    "query CollectionsGetList {\n  collections {\n    id\n    slug\n    description\n    name\n    image {\n      url\n      width\n    }\n  }\n}": types.CollectionsGetListDocument,
     "query ProductGetById($id: ID!) {\n  product(where: {id: $id}) {\n    id\n    name\n    price\n    description\n    categories {\n      id\n      name\n      slug\n    }\n    images(first: 5) {\n      url\n      id\n    }\n    reviews(first: 10, orderBy: id_ASC) {\n      id\n      content\n      name\n      rating\n      createdBy {\n        name\n      }\n      createdAt\n    }\n  }\n}": types.ProductGetByIdDocument,
     "fragment ProductListItem on Product {\n  id\n  name\n  description\n  categories(first: 1) {\n    id\n    name\n  }\n  images(first: 1) {\n    url\n  }\n  price\n}": types.ProductListItemFragmentDoc,
     "query ProductsGetList($first: Int, $skip: Int) {\n  products(first: $first, skip: $skip) {\n    ...ProductListItem\n  }\n}": types.ProductsGetListDocument,
@@ -27,6 +28,10 @@ const documents = {
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "query CategoriesGetQuantityBySlug($slug: String!) {\n  categoriesConnection(where: {slug: $slug}) {\n    aggregate {\n      count\n    }\n  }\n}"): typeof import('./graphql').CategoriesGetQuantityBySlugDocument;
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query CollectionsGetList {\n  collections {\n    id\n    slug\n    description\n    name\n    image {\n      url\n      width\n    }\n  }\n}"): typeof import('./graphql').CollectionsGetListDocument;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
