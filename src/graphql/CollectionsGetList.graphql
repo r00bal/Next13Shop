@@ -1,12 +1,5 @@
 query CollectionsGetList {
 	collections {
-		id
-		slug
-		description
-		name
-		image {
-			url
-			width
-		}
+		...CollectionListItem
 	}
 }

@@ -11,6 +11,7 @@ import {
 	type ProductGetByIdQueryVariables,
 	ProductsGetListWithBestRatingsDocument,
 	type ProductsGetListWithBestRatingsQueryVariables,
+	ProductsGetListByCollectionSlugDocument,
 } from "@/gql/graphql";
 
 export const getProductsListByCategory = async ({
@@ -70,4 +71,14 @@ export const getProductById = async (
 ) => {
 	const grapglResponse = await executeGraphql(ProductGetByIdDocument, { id });
 	return grapglResponse.product;
+};
+
+export const getProductsByCategorySlug = async (
+	slug: ProductsGetListByCategorySlugQueryVariables["slug"],
+) => {
+	const grapglResponse = await executeGraphql(
+		ProductsGetListByCollectionSlugDocument,
+		{ slug },
+	);
+	return grapglResponse.collections?.[0];
 };
