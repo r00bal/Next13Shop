@@ -1,19 +1,24 @@
 import { getCollectionDescBySlug } from "@/api/collections";
-import { getProductsByCategorySlug } from "@/api/products";
+import { getProductsByCollectionSlug } from "@/api/products";
+import { DescriptionCard } from "@/ui/atoms/DescriptionCard";
+import { ProductList } from "@/ui/organisms/ProductList";
 
 const CollectionPage = async ({
 	params: { slug },
 }: {
 	params: { slug: string };
 }) => {
-	const products = await getProductsByCategorySlug(slug);
-	const collection = await getCollectionDescBySlug(slug);
+	const products = await getProductsByCollectionSlug(slug);
+	const [collection] = await getCollectionDescBySlug(slug);
 
 	return (
 		<div>
-			<h1>Collection Page {slug}</h1>
-			<pre>{JSON.stringify(products, null, 2)}</pre>
-			<pre>{JSON.stringify(collection[0], null, 2)}</pre>
+			<div className="bg-slate-50">
+				{collection && <DescriptionCard content={collection} />}
+			</div>
+			<section className="sm:py-18 mx-auto flex w-full max-w-2xl flex-grow flex-col px-8 py-12 sm:px-6 lg:max-w-7xl">
+				{products && <ProductList products={products} />}
+			</section>
 		</div>
 	);
 };

@@ -10817,7 +10817,7 @@ export type ProductsGetListByCollectionSlugQueryVariables = Exact<{
 }>;
 
 
-export type ProductsGetListByCollectionSlugQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ id: string, name: string }>, images: Array<{ url: string }> }>, collections: Array<{ id: string, slug: string, description?: string | null, name: string, image: { url: string, width?: number | null } }> };
+export type ProductsGetListByCollectionSlugQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ id: string, name: string }>, images: Array<{ url: string }> }> };
 
 export type ProductsGetListWithBestRatingsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -10992,24 +10992,8 @@ export const ProductsGetListByCollectionSlugDocument = new TypedDocumentString(`
   products(where: {collections_some: {slug: $slug}}) {
     ...ProductListItem
   }
-  collections(where: {slug: $slug}) {
-    ...CollectionListItem
-  }
 }
-    fragment CollectionDescription on Collection {
-  description
-  name
-}
-fragment CollectionListItem on Collection {
-  id
-  slug
-  ...CollectionDescription
-  image {
-    url
-    width
-  }
-}
-fragment ProductListItem on Product {
+    fragment ProductListItem on Product {
   id
   name
   description

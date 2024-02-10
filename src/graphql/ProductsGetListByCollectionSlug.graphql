@@ -2,7 +2,4 @@ query ProductsGetListByCollectionSlug($slug: String!) {
 	products(where: { collections_some: { slug: $slug } }) {
 		...ProductListItem
 	}
-	collections(where: { slug: $slug }) {
-		...CollectionListItem
-	}
 }
