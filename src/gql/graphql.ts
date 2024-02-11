@@ -5578,6 +5578,7 @@ export type Product = Entity & Node & {
   name: Scalars['String']['output'];
   orderItems: Array<OrderItem>;
   price: Scalars['Int']['output'];
+  products: Array<Product>;
   /** The time the document was published. Null on documents in draft stage. */
   publishedAt?: Maybe<Scalars['DateTime']['output']>;
   /** User that last published this document */
@@ -5587,6 +5588,7 @@ export type Product = Entity & Node & {
   slug: Scalars['String']['output'];
   /** System stage field */
   stage: Stage;
+  tags: Array<ProductTags>;
   /** The time the document was updated */
   updatedAt: Scalars['DateTime']['output'];
   /** User that last updated this document */
@@ -5678,6 +5680,18 @@ export type ProductOrderItemsArgs = {
 };
 
 
+export type ProductProductsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<ProductWhereInput>;
+};
+
+
 export type ProductPublishedAtArgs = {
   variation?: SystemDateTimeFieldVariation;
 };
@@ -5711,6 +5725,17 @@ export type ProductScheduledInArgs = {
   locales?: InputMaybe<Array<Locale>>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<ScheduledOperationWhereInput>;
+};
+
+
+export type ProductTagsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  forceParentLocale?: InputMaybe<Scalars['Boolean']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  locales?: InputMaybe<Array<Locale>>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
@@ -6298,9 +6323,11 @@ export type ProductCreateInput = {
   orderItems?: InputMaybe<OrderItemCreateManyInlineInput>;
   /** price input for default locale (en) */
   price: Scalars['Int']['input'];
+  products?: InputMaybe<ProductCreateManyInlineInput>;
   reviews?: InputMaybe<ReviewCreateManyInlineInput>;
   /** slug input for default locale (en) */
   slug: Scalars['String']['input'];
+  tags?: InputMaybe<ProductTagsCreateManyInlineInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   variants?: InputMaybe<ProductVariantsCreateManyInlineInput>;
 };
@@ -6407,6 +6434,9 @@ export type ProductManyWhereInput = {
   orderItems_every?: InputMaybe<OrderItemWhereInput>;
   orderItems_none?: InputMaybe<OrderItemWhereInput>;
   orderItems_some?: InputMaybe<OrderItemWhereInput>;
+  products_every?: InputMaybe<ProductWhereInput>;
+  products_none?: InputMaybe<ProductWhereInput>;
+  products_some?: InputMaybe<ProductWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -6429,6 +6459,10 @@ export type ProductManyWhereInput = {
   scheduledIn_every?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_none?: InputMaybe<ScheduledOperationWhereInput>;
   scheduledIn_some?: InputMaybe<ScheduledOperationWhereInput>;
+  /** All values in which the union is empty */
+  tags_empty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Matches if the union contains at least one connection to the provided item to the filter */
+  tags_some?: InputMaybe<ProductTagsWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -7552,6 +7586,86 @@ export type ProductSizeVariantWhereUniqueInput = {
   id?: InputMaybe<Scalars['ID']['input']>;
 };
 
+export type ProductTags = Product;
+
+export type ProductTagsConnectInput = {
+  Product?: InputMaybe<ProductConnectInput>;
+};
+
+export type ProductTagsCreateInput = {
+  Product?: InputMaybe<ProductCreateInput>;
+};
+
+export type ProductTagsCreateManyInlineInput = {
+  /** Connect multiple existing ProductTags documents */
+  connect?: InputMaybe<Array<ProductTagsWhereUniqueInput>>;
+  /** Create and connect multiple existing ProductTags documents */
+  create?: InputMaybe<Array<ProductTagsCreateInput>>;
+};
+
+export type ProductTagsCreateOneInlineInput = {
+  /** Connect one existing ProductTags document */
+  connect?: InputMaybe<ProductTagsWhereUniqueInput>;
+  /** Create and connect one ProductTags document */
+  create?: InputMaybe<ProductTagsCreateInput>;
+};
+
+export type ProductTagsUpdateInput = {
+  Product?: InputMaybe<ProductUpdateInput>;
+};
+
+export type ProductTagsUpdateManyInlineInput = {
+  /** Connect multiple existing ProductTags documents */
+  connect?: InputMaybe<Array<ProductTagsConnectInput>>;
+  /** Create and connect multiple ProductTags documents */
+  create?: InputMaybe<Array<ProductTagsCreateInput>>;
+  /** Delete multiple ProductTags documents */
+  delete?: InputMaybe<Array<ProductTagsWhereUniqueInput>>;
+  /** Disconnect multiple ProductTags documents */
+  disconnect?: InputMaybe<Array<ProductTagsWhereUniqueInput>>;
+  /** Override currently-connected documents with multiple existing ProductTags documents */
+  set?: InputMaybe<Array<ProductTagsWhereUniqueInput>>;
+  /** Update multiple ProductTags documents */
+  update?: InputMaybe<Array<ProductTagsUpdateWithNestedWhereUniqueInput>>;
+  /** Upsert multiple ProductTags documents */
+  upsert?: InputMaybe<Array<ProductTagsUpsertWithNestedWhereUniqueInput>>;
+};
+
+export type ProductTagsUpdateManyWithNestedWhereInput = {
+  Product?: InputMaybe<ProductUpdateManyWithNestedWhereInput>;
+};
+
+export type ProductTagsUpdateOneInlineInput = {
+  /** Connect existing ProductTags document */
+  connect?: InputMaybe<ProductTagsWhereUniqueInput>;
+  /** Create and connect one ProductTags document */
+  create?: InputMaybe<ProductTagsCreateInput>;
+  /** Delete currently connected ProductTags document */
+  delete?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Disconnect currently connected ProductTags document */
+  disconnect?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Update single ProductTags document */
+  update?: InputMaybe<ProductTagsUpdateWithNestedWhereUniqueInput>;
+  /** Upsert single ProductTags document */
+  upsert?: InputMaybe<ProductTagsUpsertWithNestedWhereUniqueInput>;
+};
+
+export type ProductTagsUpdateWithNestedWhereUniqueInput = {
+  Product?: InputMaybe<ProductUpdateWithNestedWhereUniqueInput>;
+};
+
+export type ProductTagsUpsertWithNestedWhereUniqueInput = {
+  Product?: InputMaybe<ProductUpsertWithNestedWhereUniqueInput>;
+};
+
+export type ProductTagsWhereInput = {
+  Product?: InputMaybe<ProductWhereInput>;
+};
+
+export type ProductTagsWhereUniqueInput = {
+  Product?: InputMaybe<ProductWhereUniqueInput>;
+};
+
 export type ProductUpdateInput = {
   categories?: InputMaybe<CategoryUpdateManyInlineInput>;
   collections?: InputMaybe<CollectionUpdateManyInlineInput>;
@@ -7565,9 +7679,11 @@ export type ProductUpdateInput = {
   orderItems?: InputMaybe<OrderItemUpdateManyInlineInput>;
   /** price input for default locale (en) */
   price?: InputMaybe<Scalars['Int']['input']>;
+  products?: InputMaybe<ProductUpdateManyInlineInput>;
   reviews?: InputMaybe<ReviewUpdateManyInlineInput>;
   /** slug input for default locale (en) */
   slug?: InputMaybe<Scalars['String']['input']>;
+  tags?: InputMaybe<ProductTagsUpdateManyInlineInput>;
   variants?: InputMaybe<ProductVariantsUpdateManyInlineInput>;
 };
 
@@ -7898,6 +8014,9 @@ export type ProductWhereInput = {
   price_not?: InputMaybe<Scalars['Int']['input']>;
   /** All values that are not contained in given list. */
   price_not_in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  products_every?: InputMaybe<ProductWhereInput>;
+  products_none?: InputMaybe<ProductWhereInput>;
+  products_some?: InputMaybe<ProductWhereInput>;
   publishedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   publishedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -7939,6 +8058,10 @@ export type ProductWhereInput = {
   slug_not_starts_with?: InputMaybe<Scalars['String']['input']>;
   /** All values starting with the given string. */
   slug_starts_with?: InputMaybe<Scalars['String']['input']>;
+  /** All values in which the union is empty */
+  tags_empty?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Matches if the union contains at least one connection to the provided item to the filter */
+  tags_some?: InputMaybe<ProductTagsWhereInput>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
   /** All values greater than the given value. */
   updatedAt_gt?: InputMaybe<Scalars['DateTime']['input']>;
@@ -10791,7 +10914,7 @@ export type ProductGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, description: string, categories: Array<{ id: string, name: string, slug: string }>, images: Array<{ url: string, id: string }>, reviews: Array<{ id: string, content: string, name: string, rating: number, createdAt: unknown, createdBy?: { name: string } | null }> } | null };
+export type ProductGetByIdQuery = { product?: { id: string, name: string, price: number, description: string, categories: Array<{ id: string, name: string, slug: string }>, images: Array<{ url: string, id: string }>, reviews: Array<{ id: string, content: string, name: string, rating: number, createdAt: unknown, createdBy?: { name: string } | null }>, variants: Array<{ id: string, name: string, product?: { id: string, price: number } | null } | {}> } | null };
 
 export type ProductListItemFragment = { id: string, name: string, description: string, price: number, categories: Array<{ id: string, name: string }>, images: Array<{ url: string }> };
 
@@ -10830,6 +10953,8 @@ export type ProductsGetQuantityQueryVariables = Exact<{ [key: string]: never; }>
 
 
 export type ProductsGetQuantityQuery = { productsConnection: { aggregate: { count: number } } };
+
+export type VariantFragment = { id: string, name: string, product?: { id: string, price: number } | null };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -10880,6 +11005,16 @@ export const ProductListItemFragmentDoc = new TypedDocumentString(`
   price
 }
     `, {"fragmentName":"ProductListItem"}) as unknown as TypedDocumentString<ProductListItemFragment, unknown>;
+export const VariantFragmentDoc = new TypedDocumentString(`
+    fragment Variant on ProductSizeColorVariant {
+  id
+  name
+  product {
+    id
+    price
+  }
+}
+    `, {"fragmentName":"Variant"}) as unknown as TypedDocumentString<VariantFragment, unknown>;
 export const CategoriesGetQuantityBySlugDocument = new TypedDocumentString(`
     query CategoriesGetQuantityBySlug($slug: String!) {
   categoriesConnection(where: {slug: $slug}) {
@@ -10944,9 +11079,21 @@ export const ProductGetByIdDocument = new TypedDocumentString(`
       }
       createdAt
     }
+    variants {
+      ... on ProductSizeColorVariant {
+        ...Variant
+      }
+    }
   }
 }
-    `) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
+    fragment Variant on ProductSizeColorVariant {
+  id
+  name
+  product {
+    id
+    price
+  }
+}`) as unknown as TypedDocumentString<ProductGetByIdQuery, ProductGetByIdQueryVariables>;
 export const ProductsGetListDocument = new TypedDocumentString(`
     query ProductsGetList($first: Int, $skip: Int) {
   products(first: $first, skip: $skip) {

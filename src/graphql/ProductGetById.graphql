@@ -1,28 +1,32 @@
 query ProductGetById($id: ID!) {
-  product(where: {id: $id}) {
-    id
-    name
-    price
-    description
-    categories {
-      id
-      name
-      slug
-    }
-    images(first: 5) {
-      url
-      id
-       
-    }
-    reviews(first: 10, orderBy: id_ASC) {
-      id
-      content
-      name
-      rating
-      createdBy {
-         name
-      }
-       createdAt
-    }
-  }
+	product(where: { id: $id }) {
+		id
+		name
+		price
+		description
+		categories {
+			id
+			name
+			slug
+		}
+		images(first: 5) {
+			url
+			id
+		}
+		reviews(first: 10, orderBy: id_ASC) {
+			id
+			content
+			name
+			rating
+			createdBy {
+				name
+			}
+			createdAt
+		}
+		variants {
+			... on ProductSizeColorVariant {
+				...Variant
+			}
+		}
+	}
 }

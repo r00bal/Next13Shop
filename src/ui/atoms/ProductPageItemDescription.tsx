@@ -1,10 +1,14 @@
-import { type ProductGetByIdQuery } from "@/gql/graphql";
+import { Dropdown } from "./Dropdown";
+import { type VariantFragment, type ProductGetByIdQuery } from "@/gql/graphql";
 
 type ProductPageItemProps = {
-	product: NonNullable<ProductGetByIdQuery["product"]>;
+	product: Omit<NonNullable<ProductGetByIdQuery["product"]>, "variants"> & {
+		variants: VariantFragment[];
+	};
 };
+
 export const ProductPageItemDescription = ({
-	product: { name, categories, price, description },
+	product: { name, categories, price, description, variants },
 }: ProductPageItemProps) => {
 	return (
 		<div className="flex flex-col px-6">
@@ -39,6 +43,14 @@ export const ProductPageItemDescription = ({
 				</svg>
 				<p className="ml-1 text-sm font-semibold text-slate-500">In stock</p>
 			</div>
+			{variants && variants?.length > 0 && (
+				<Dropdown
+					options={variants.map(({ name, product }) => ({
+						name,
+						id: product?.id,
+					}))}
+				/>
+			)}
 			<div className="mt-auto">
 				<button
 					type="submit"

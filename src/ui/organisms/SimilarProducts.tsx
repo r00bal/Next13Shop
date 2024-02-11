@@ -11,7 +11,7 @@ type SimilarProductsProps = {
 export const SimilarProducts = async ({ slug }: SimilarProductsProps) => {
 	const products = await getProductsListByCategory({ first: 4, slug, skip: 0 });
 	return (
-		<div>
+		<div data-testid="related-products">
 			<ProductList products={products} />
 		</div>
 	);

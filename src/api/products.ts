@@ -13,6 +13,7 @@ import {
 	type ProductsGetListWithBestRatingsQueryVariables,
 	ProductsGetListByCollectionSlugDocument,
 	type ProductsGetListByCollectionSlugQueryVariables,
+	type VariantFragment,
 } from "@/gql/graphql";
 
 export const getProductsListByCategory = async ({
@@ -49,7 +50,6 @@ export const getProductsListWithBestRatings = async ({
 			first,
 		},
 	);
-
 	return grapglResponse?.products ? grapglResponse.products : [];
 };
 export const getProductsTotal = async () => {
@@ -70,8 +70,21 @@ export const getProductsTotalByCategory = async (
 export const getProductById = async (
 	id: ProductGetByIdQueryVariables["id"],
 ) => {
-	const grapglResponse = await executeGraphql(ProductGetByIdDocument, { id });
-	return grapglResponse.product;
+	const { product } = await executeGraphql(ProductGetByIdDocument, { id });
+	const isVariantArray =
+		product?.variants &&
+		Array.isArray(product?.variants) &&
+		product?.variants[0] &&
+		product?.variants[0] &&
+		product?.variants[0].hasOwnProperty("id");
+	return product
+		? {
+				...product,
+				variants: isVariantArray
+					? (product?.variants as VariantFragment[])
+					: [],
+		  }
+		: null;
 };
 
 export const getProductsByCollectionSlug = async (
