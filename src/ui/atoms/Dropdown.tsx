@@ -13,8 +13,7 @@ type DropdownProps = {
 export const Dropdown = ({ options }: DropdownProps) => {
 	const params = useParams<ProductPageParams["params"]>();
 	const router = useRouter();
-	const variant = (params?.variant && params.variant.join("/")) || "";
-	console.log({ variant });
+	const variant = (params.variant || []).join("/");
 
 	return (
 		<div className="relative mt-6 inline-block">

@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 }
 
 export type ProductPageParams = {
-	params: { productId: string; variant?: string };
+	params: { productId: string; variant?: string[] };
 };
 export default async function ProductPage({
 	params: { productId },
