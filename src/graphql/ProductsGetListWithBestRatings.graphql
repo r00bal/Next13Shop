@@ -1,0 +1,5 @@
+query ProductsGetListWithBestRatings($first: Int) {
+	products(where: { reviews_some: { rating_gte: 4 } }, first: $first) {
+		...ProductListItem
+	}
+}
