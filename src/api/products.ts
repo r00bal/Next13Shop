@@ -14,6 +14,8 @@ import {
 	ProductsGetListByCollectionSlugDocument,
 	type ProductsGetListByCollectionSlugQueryVariables,
 	type VariantFragment,
+	ProductsGetListBySearchQueryDocument,
+	type ProductsGetListBySearchQueryQueryVariables,
 } from "@/gql/graphql";
 
 export const getProductsListByCategory = async ({
@@ -93,6 +95,16 @@ export const getProductsByCollectionSlug = async (
 	const grapglResponse = await executeGraphql(
 		ProductsGetListByCollectionSlugDocument,
 		{ slug },
+	);
+	return grapglResponse.products;
+};
+
+export const ProductsGetListBySearchQuery = async (
+	search?: ProductsGetListBySearchQueryQueryVariables["search"],
+) => {
+	const grapglResponse = await executeGraphql(
+		ProductsGetListBySearchQueryDocument,
+		{ search },
 	);
 	return grapglResponse.products;
 };

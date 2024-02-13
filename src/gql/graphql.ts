@@ -10942,6 +10942,13 @@ export type ProductsGetListByCollectionSlugQueryVariables = Exact<{
 
 export type ProductsGetListByCollectionSlugQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ id: string, name: string }>, images: Array<{ url: string }> }> };
 
+export type ProductsGetListBySearchQueryQueryVariables = Exact<{
+  search?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type ProductsGetListBySearchQueryQuery = { products: Array<{ id: string, name: string, description: string, price: number, categories: Array<{ id: string, name: string }>, images: Array<{ url: string }> }> };
+
 export type ProductsGetListWithBestRatingsQueryVariables = Exact<{
   first?: InputMaybe<Scalars['Int']['input']>;
 }>;
@@ -11153,6 +11160,25 @@ export const ProductsGetListByCollectionSlugDocument = new TypedDocumentString(`
   }
   price
 }`) as unknown as TypedDocumentString<ProductsGetListByCollectionSlugQuery, ProductsGetListByCollectionSlugQueryVariables>;
+export const ProductsGetListBySearchQueryDocument = new TypedDocumentString(`
+    query ProductsGetListBySearchQuery($search: String) {
+  products(where: {_search: $search}) {
+    ...ProductListItem
+  }
+}
+    fragment ProductListItem on Product {
+  id
+  name
+  description
+  categories(first: 1) {
+    id
+    name
+  }
+  images(first: 1) {
+    url
+  }
+  price
+}`) as unknown as TypedDocumentString<ProductsGetListBySearchQueryQuery, ProductsGetListBySearchQueryQueryVariables>;
 export const ProductsGetListWithBestRatingsDocument = new TypedDocumentString(`
     query ProductsGetListWithBestRatings($first: Int) {
   products(where: {reviews_some: {rating_gte: 4}}, first: $first) {
