@@ -15,10 +15,10 @@ const navLinks: NavLinkType[] = [
 
 export const Navbar = () => {
 	return (
-		<nav className="w-full" role="navigation">
-			<ul className="mx-auto flex w-full max-w-3xl items-center justify-center">
+		<nav className=" w-full  border-b border-gray-300" role="navigation">
+			<ul className="m-auto flex h-16 w-full max-w-7xl items-center justify-between ">
 				{navLinks.map(({ href, label }) => (
-					<li key="home" className="px-5">
+					<li key="home" className="h-full px-5">
 						<ActiveLink exact={href === "/"} href={href}>
 							{label}
 						</ActiveLink>
