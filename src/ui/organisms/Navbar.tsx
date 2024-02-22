@@ -15,7 +15,7 @@ const navLinks: NavLinkType[] = [
 
 export const Navbar = () => {
 	return (
-		<nav className="w-full">
+		<nav className="w-full" role="navigation">
 			<ul className="mx-auto flex w-full max-w-3xl items-center justify-center">
 				{navLinks.map(({ href, label }) => (
 					<li key="home" className="px-5">
