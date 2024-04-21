@@ -1,3 +1,4 @@
+import { type Metadata } from "next";
 import {
 	PRODUCTS_TO_TAKE,
 	getProductsListByCategory,
@@ -6,6 +7,16 @@ import {
 } from "@/api";
 import { getPages, getSkip } from "@/utils";
 import { Products } from "@/ui/organisms/Products";
+
+export async function generateMetadata({
+	params: { category, pageNumber },
+}: {
+	params: { category: string; pageNumber: string };
+}): Promise<Metadata> {
+	return {
+		title: `${category}: page ${pageNumber}`,
+	};
+}
 
 export async function generateStaticParams() {
 	const total = await getProductsTotal();
@@ -26,6 +37,9 @@ export default async function ProductsPage({
 	});
 	const total = await getProductsTotalByCategory(category);
 	const pages = getPages(total, PRODUCTS_TO_TAKE);
-
-	return <Products pages={pages} products={products} />;
+	return (
+		<div className="sm:py-18 mx-auto w-full max-w-2xl px-8 py-12 sm:px-6 lg:max-w-7xl">
+			<Products pages={pages} products={products} />
+		</div>
+	);
 }
