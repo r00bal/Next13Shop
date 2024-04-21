@@ -1,11 +1,50 @@
+import { cookies } from "next/headers";
 import { Dropdown } from "./Dropdown";
-import { type VariantFragment, type ProductGetByIdQuery } from "@/gql/graphql";
+import {
+	type VariantFragment,
+	type ProductGetByIdQuery,
+	CartGetByIdDocument,
+	CartCreateDocument,
+} from "@/gql/graphql";
+import { executeGraphql } from "@/api/utils";
 
 type ProductPageItemProps = {
 	product: Omit<NonNullable<ProductGetByIdQuery["product"]>, "variants"> & {
 		variants: VariantFragment[];
 	};
 };
+
+async function addProductToCart(cartId: string, productId: string) {
+	// const { product } = await executeGraphql(ProductGetByIdDocument, {
+	// 	id: productId,
+	// });
+	// if (!product) {
+	// 	throw new Error(`Product with id ${productId} not found`);
+	// }
+	// await executeGraphql(CartAddItemDocument, {
+	// 	cartId,
+	// 	productId,
+	// 	total: product.price,
+	// });
+}
+
+async function getOrCreateCart() {
+	const cartId = cookies().get("cartId")?.value;
+	if (cartId) {
+		const { order: cart } = await executeGraphql(CartGetByIdDocument, {
+			id: cartId,
+		});
+		if (cart) {
+			return cart;
+		}
+	}
+	const { createOrder: newCart } = await executeGraphql(CartCreateDocument, {});
+	if (!newCart) {
+		throw new Error("Failed to create cart");
+	}
+	cookies().set("cartId", newCart.id);
+	return newCart;
+}
 
 export const ProductPageItemDescription = ({
 	product: { id, name, categories, price, description, variants },
@@ -14,6 +53,8 @@ export const ProductPageItemDescription = ({
 		"use server";
 		console.log("addProductToCartAction");
 		console.log(`productId: ${id}`);
+		const cart = await getOrCreateCart();
+		// await addProductToCart(cart.id, product.id);
 	}
 	return (
 		<form action={addProductToCartAction} className="flex flex-col px-6">
