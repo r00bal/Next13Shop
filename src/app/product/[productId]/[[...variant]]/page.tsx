@@ -7,7 +7,6 @@ import { Spinner } from "@/ui/atoms/Spinner";
 
 export async function generateStaticParams() {
 	const products = await getProductsList({});
-	console.log(products);
 
 	return products.map((product) => ({ productId: product.id }));
 }
