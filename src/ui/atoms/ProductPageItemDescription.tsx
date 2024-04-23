@@ -5,6 +5,8 @@ import {
 	type ProductGetByIdQuery,
 	CartGetByIdDocument,
 	CartCreateDocument,
+	ProductGetByIdDocument,
+	CartAddItemDocument,
 } from "@/gql/graphql";
 import { executeGraphql } from "@/api/utils";
 
@@ -15,17 +17,17 @@ type ProductPageItemProps = {
 };
 
 async function addProductToCart(cartId: string, productId: string) {
-	// const { product } = await executeGraphql(ProductGetByIdDocument, {
-	// 	id: productId,
-	// });
-	// if (!product) {
-	// 	throw new Error(`Product with id ${productId} not found`);
-	// }
-	// await executeGraphql(CartAddItemDocument, {
-	// 	cartId,
-	// 	productId,
-	// 	total: product.price,
-	// });
+	const { product } = await executeGraphql(ProductGetByIdDocument, {
+		id: productId,
+	});
+	if (!product) {
+		throw new Error(`Product with id ${productId} not found`);
+	}
+	await executeGraphql(CartAddItemDocument, {
+		cartId,
+		productId,
+		total: product.price,
+	});
 }
 
 async function getOrCreateCart() {
@@ -54,7 +56,7 @@ export const ProductPageItemDescription = ({
 		console.log("addProductToCartAction");
 		console.log(`productId: ${id}`);
 		const cart = await getOrCreateCart();
-		// await addProductToCart(cart.id, product.id);
+		await addProductToCart(cart.id, product.id);
 	}
 	return (
 		<form action={addProductToCartAction} className="flex flex-col px-6">

@@ -10889,6 +10889,15 @@ export type _SystemDateTimeFieldVariation =
 
 export type CartFragment = { id: string };
 
+export type CartAddItemMutationVariables = Exact<{
+  cartId: Scalars['ID']['input'];
+  productId: Scalars['ID']['input'];
+  total: Scalars['Int']['input'];
+}>;
+
+
+export type CartAddItemMutation = { createOrderItem?: { id: string } | null };
+
 export type CartCreateMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -11042,6 +11051,15 @@ export const VariantFragmentDoc = new TypedDocumentString(`
   }
 }
     `, {"fragmentName":"Variant"}) as unknown as TypedDocumentString<VariantFragment, unknown>;
+export const CartAddItemDocument = new TypedDocumentString(`
+    mutation CartAddItem($cartId: ID!, $productId: ID!, $total: Int!) {
+  createOrderItem(
+    data: {quantity: 1, total: $total, order: {connect: {id: $cartId}}, product: {connect: {id: $productId}}}
+  ) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<CartAddItemMutation, CartAddItemMutationVariables>;
 export const CartCreateDocument = new TypedDocumentString(`
     mutation CartCreate {
   createOrder(data: {total: 0}) {
