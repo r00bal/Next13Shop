@@ -23,10 +23,12 @@ async function addProductToCart(cartId: string, productId: string) {
 	if (!product) {
 		throw new Error(`Product with id ${productId} not found`);
 	}
+	console.log("addProductToCart", { cartId, productId, total: product.price });
+
 	await executeGraphql(CartAddItemDocument, {
 		cartId,
 		productId,
-		total: product.price,
+		total: 2000,
 	});
 }
 
@@ -56,7 +58,9 @@ export const ProductPageItemDescription = ({
 		console.log("addProductToCartAction");
 		console.log(`productId: ${id}`);
 		const cart = await getOrCreateCart();
-		await addProductToCart(cart.id, product.id);
+		console.log(`cartId: ${cart.id}`);
+
+		await addProductToCart(cart.id, id);
 	}
 	return (
 		<form action={addProductToCartAction} className="flex flex-col px-6">
