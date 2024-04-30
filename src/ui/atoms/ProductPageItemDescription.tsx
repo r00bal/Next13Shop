@@ -1,14 +1,7 @@
-import { cookies } from "next/headers";
 import { Dropdown } from "./Dropdown";
-import {
-	type VariantFragment,
-	type ProductGetByIdQuery,
-	CartGetByIdDocument,
-	CartCreateDocument,
-	ProductGetByIdDocument,
-	CartAddItemDocument,
-} from "@/gql/graphql";
-import { executeGraphql } from "@/api/utils";
+import { AddToCartButton } from "./AddToCartButton";
+import { type VariantFragment, type ProductGetByIdQuery } from "@/gql/graphql";
+import { getOrCreateCart, addProductToCart } from "@/api/cart";
 
 type ProductPageItemProps = {
 	product: Omit<NonNullable<ProductGetByIdQuery["product"]>, "variants"> & {
@@ -16,50 +9,12 @@ type ProductPageItemProps = {
 	};
 };
 
-async function addProductToCart(cartId: string, productId: string) {
-	const { product } = await executeGraphql(ProductGetByIdDocument, {
-		id: productId,
-	});
-	if (!product) {
-		throw new Error(`Product with id ${productId} not found`);
-	}
-	console.log("addProductToCart", { cartId, productId, total: product.price });
-
-	await executeGraphql(CartAddItemDocument, {
-		cartId,
-		productId,
-		total: 2000,
-	});
-}
-
-async function getOrCreateCart() {
-	const cartId = cookies().get("cartId")?.value;
-	if (cartId) {
-		const { order: cart } = await executeGraphql(CartGetByIdDocument, {
-			id: cartId,
-		});
-		if (cart) {
-			return cart;
-		}
-	}
-	const { createOrder: newCart } = await executeGraphql(CartCreateDocument, {});
-	if (!newCart) {
-		throw new Error("Failed to create cart");
-	}
-	cookies().set("cartId", newCart.id);
-	return newCart;
-}
-
 export const ProductPageItemDescription = ({
 	product: { id, name, categories, price, description, variants },
 }: ProductPageItemProps) => {
 	async function addProductToCartAction() {
 		"use server";
-		console.log("addProductToCartAction");
-		console.log(`productId: ${id}`);
 		const cart = await getOrCreateCart();
-		console.log(`cartId: ${cart.id}`);
-
 		await addProductToCart(cart.id, id);
 	}
 	return (
@@ -104,12 +59,7 @@ export const ProductPageItemDescription = ({
 				/>
 			)}
 			<div className="mt-auto">
-				<button
-					type="submit"
-					className="inline-flex h-14 w-full items-center justify-center rounded-md from-[#1e4b65] from-20% via-[#010315] to-[#0b237d] to-80% px-6  text-base font-medium leading-6 text-white shadow transition duration-150 ease-in-out enabled:bg-gradient-to-r hover:enabled:brightness-125 disabled:cursor-wait disabled:bg-gray-300"
-				>
-					Add to cart
-				</button>
+				<AddToCartButton />
 			</div>
 		</form>
 	);

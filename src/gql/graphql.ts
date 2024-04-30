@@ -10906,9 +10906,9 @@ export type CartGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type CartGetByIdQuery = { order?: { id: string } | null };
+export type CartGetByIdQuery = { order?: { id: string, orderItems: Array<{ id: string, quantity: number, product?: { id: string, name: string, price: number, images: Array<{ url: string }> } | null }> } | null };
 
-export type CartFragment = { id: string };
+export type CartFragment = { id: string, orderItems: Array<{ id: string, quantity: number, product?: { id: string, name: string, price: number, images: Array<{ url: string }> } | null }> };
 
 export type CategoriesGetQuantityBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -11004,6 +11004,18 @@ export class TypedDocumentString<TResult, TVariables>
 export const CartFragmentDoc = new TypedDocumentString(`
     fragment Cart on Order {
   id
+  orderItems {
+    id
+    quantity
+    product {
+      id
+      name
+      price
+      images {
+        url
+      }
+    }
+  }
 }
     `, {"fragmentName":"Cart"}) as unknown as TypedDocumentString<CartFragment, unknown>;
 export const CollectionDescriptionFragmentDoc = new TypedDocumentString(`
@@ -11070,10 +11082,24 @@ export const CartCreateDocument = new TypedDocumentString(`
 export const CartGetByIdDocument = new TypedDocumentString(`
     query CartGetById($id: ID!) {
   order(where: {id: $id}, stage: DRAFT) {
-    id
+    ...Cart
   }
 }
-    `) as unknown as TypedDocumentString<CartGetByIdQuery, CartGetByIdQueryVariables>;
+    fragment Cart on Order {
+  id
+  orderItems {
+    id
+    quantity
+    product {
+      id
+      name
+      price
+      images {
+        url
+      }
+    }
+  }
+}`) as unknown as TypedDocumentString<CartGetByIdQuery, CartGetByIdQueryVariables>;
 export const CategoriesGetQuantityBySlugDocument = new TypedDocumentString(`
     query CategoriesGetQuantityBySlug($slug: String!) {
   categoriesConnection(where: {slug: $slug}) {
