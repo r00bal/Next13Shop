@@ -1,6 +1,7 @@
 import { type Route } from "next";
-import { ActiveLink } from "@/ui/atoms/ActiveLink";
 import { Search } from "@/ui/atoms/Search";
+import { Cart } from "@/ui/atoms/Cart";
+import { ActiveLink } from "@/ui/atoms/ActiveLink";
 type NavLinkType = {
 	href: Route<string>;
 	label: string;
@@ -15,8 +16,11 @@ const navLinks: NavLinkType[] = [
 
 export const Navbar = () => {
 	return (
-		<nav className=" w-full  border-b border-gray-300" role="navigation">
-			<ul className="m-auto flex h-16 w-full max-w-7xl items-center justify-between ">
+		<nav
+			className="flex w-full  items-center border-b border-gray-300 px-8"
+			role="navigation"
+		>
+			<ul className="m-auto flex h-16 w-full max-w-7xl items-center  ">
 				{navLinks.map(({ href, label }) => (
 					<li key="home" className="h-full px-5">
 						<ActiveLink exact={href === "/"} href={href}>
@@ -24,10 +28,13 @@ export const Navbar = () => {
 						</ActiveLink>
 					</li>
 				))}
-				<li key="search" className="ml-auto">
-					<Search />
-				</li>
 			</ul>
+
+			<div className="m-auto flex h-16 w-full items-center justify-end">
+				<Search />
+
+				<Cart />
+			</div>
 		</nav>
 	);
 };
