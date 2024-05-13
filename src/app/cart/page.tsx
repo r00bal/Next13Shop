@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import NextImage from "next/image";
 import { formatMoney } from "./utils";
+import { ChangeQuantity } from "./ChangeQuantity";
 import { getCartFromCookies } from "@/api/cart";
 
 export default async function CartPage() {
@@ -12,7 +13,7 @@ export default async function CartPage() {
 	return (
 		<div className="p-10 text-pink-700">
 			<h1>Order #{cart.id} summary</h1>
-			<table>
+			<table className="w-full">
 				<thead>
 					<tr>
 						<th>Product</th>
@@ -27,6 +28,10 @@ export default async function CartPage() {
 						if (!item.product) {
 							return null;
 						}
+						const { id: itemId } = item;
+						const { price } = item.product;
+
+						const { quantity } = item;
 						return (
 							<tr key={item.product.id}>
 								<td>
@@ -42,8 +47,14 @@ export default async function CartPage() {
 										))}
 								</td>
 								<td>{name}</td>
-								<td>{item.quantity}</td>
-								<td>{formatMoney(item.product.price)}</td>
+								<td>
+									<ChangeQuantity
+										itemId={itemId}
+										quantity={quantity}
+										total={price}
+									/>
+								</td>
+								<td>{formatMoney(item.total)}</td>
 							</tr>
 						);
 					})}

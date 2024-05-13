@@ -10906,9 +10906,18 @@ export type CartGetByIdQueryVariables = Exact<{
 }>;
 
 
-export type CartGetByIdQuery = { order?: { id: string, orderItems: Array<{ id: string, quantity: number, product?: { id: string, name: string, price: number, images: Array<{ url: string }> } | null }> } | null };
+export type CartGetByIdQuery = { order?: { id: string, orderItems: Array<{ id: string, quantity: number, total: number, product?: { id: string, name: string, price: number, images: Array<{ url: string }> } | null }> } | null };
 
-export type CartFragment = { id: string, orderItems: Array<{ id: string, quantity: number, product?: { id: string, name: string, price: number, images: Array<{ url: string }> } | null }> };
+export type CartFragment = { id: string, orderItems: Array<{ id: string, quantity: number, total: number, product?: { id: string, name: string, price: number, images: Array<{ url: string }> } | null }> };
+
+export type CartSetProductQuantityMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  quantity: Scalars['Int']['input'];
+  total: Scalars['Int']['input'];
+}>;
+
+
+export type CartSetProductQuantityMutation = { updateOrderItem?: { id: string } | null };
 
 export type CategoriesGetQuantityBySlugQueryVariables = Exact<{
   slug: Scalars['String']['input'];
@@ -11007,6 +11016,7 @@ export const CartFragmentDoc = new TypedDocumentString(`
   orderItems {
     id
     quantity
+    total
     product {
       id
       name
@@ -11090,6 +11100,7 @@ export const CartGetByIdDocument = new TypedDocumentString(`
   orderItems {
     id
     quantity
+    total
     product {
       id
       name
@@ -11100,6 +11111,13 @@ export const CartGetByIdDocument = new TypedDocumentString(`
     }
   }
 }`) as unknown as TypedDocumentString<CartGetByIdQuery, CartGetByIdQueryVariables>;
+export const CartSetProductQuantityDocument = new TypedDocumentString(`
+    mutation CartSetProductQuantity($id: ID!, $quantity: Int!, $total: Int!) {
+  updateOrderItem(data: {quantity: $quantity, total: $total}, where: {id: $id}) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<CartSetProductQuantityMutation, CartSetProductQuantityMutationVariables>;
 export const CategoriesGetQuantityBySlugDocument = new TypedDocumentString(`
     query CategoriesGetQuantityBySlug($slug: String!) {
   categoriesConnection(where: {slug: $slug}) {
