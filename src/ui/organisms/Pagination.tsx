@@ -9,7 +9,7 @@ export const Pagination = ({ pages }: { pages: number[] }) => {
 		>
 			<ul className="-mt-px flex">
 				{pages.map((page) => (
-					<li key={page}>
+					<li key={page} className="ml-2 text-black">
 						<ActiveLink
 							className="inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium"
 							activeClassName="border-blue-500 text-blue-600"
