@@ -7,7 +7,11 @@ import {
 	CartCreateDocument,
 } from "@/gql/graphql";
 
-export async function addProductToCart(cartId: string, productId: string) {
+export async function addProductToCart(
+	cartId: string,
+	productId: string,
+	total: number,
+) {
 	const { product } = await executeGraphql({
 		query: ProductGetByIdDocument,
 		variables: {
@@ -23,8 +27,9 @@ export async function addProductToCart(cartId: string, productId: string) {
 		variables: {
 			cartId,
 			productId,
-			total: 2000,
+			total,
 		},
+		next: { tags: ["cart"] },
 	});
 }
 
@@ -37,7 +42,10 @@ export async function getOrCreateCart() {
 	if (!newCart) {
 		throw new Error("Failed to create cart");
 	}
-	cookies().set("cartId", newCart.id);
+	cookies().set("cartId", newCart.id, {
+		httpOnly: true,
+		sameSite: "lax",
+	});
 	return newCart;
 }
 
@@ -52,9 +60,16 @@ export async function getCartFromCookies() {
 }
 
 async function getCartById(id: string) {
-	return executeGraphql({ query: CartGetByIdDocument, variables: { id } });
+	return executeGraphql({
+		query: CartGetByIdDocument,
+		variables: { id },
+		next: { tags: ["cart"] },
+	});
 }
 
 async function createCart() {
-	return executeGraphql({ query: CartCreateDocument, variables: {} });
+	return executeGraphql({
+		query: CartCreateDocument,
+		variables: {},
+	});
 }

@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 import { Dropdown } from "./Dropdown";
 import { AddToCartButton } from "./AddToCartButton";
 import { type VariantFragment, type ProductGetByIdQuery } from "@/gql/graphql";
@@ -15,7 +16,8 @@ export const ProductPageItemDescription = ({
 	async function addProductToCartAction() {
 		"use server";
 		const cart = await getOrCreateCart();
-		await addProductToCart(cart.id, id);
+		await addProductToCart(cart.id, id, price);
+		revalidateTag("cart");
 	}
 	return (
 		<form action={addProductToCartAction} className="flex flex-col px-6">

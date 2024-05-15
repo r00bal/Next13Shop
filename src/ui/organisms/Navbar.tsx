@@ -14,7 +14,7 @@ const navLinks: NavLinkType[] = [
 	{ href: "/categories/accessories" as Route<string>, label: "Accessories" },
 ];
 
-export const Navbar = () => {
+export const Navbar = async () => {
 	return (
 		<nav
 			className="flex w-full  items-center border-b border-gray-300 px-8"

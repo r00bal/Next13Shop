@@ -34,7 +34,6 @@ export function ChangeQuantity({
 				className="h-6 w-6 border"
 				type="submit"
 				formAction={async () => {
-					console.log({ itemId });
 					setOptimisticQuantity(optimisticQuantity + 1);
 					await changeItemQuantity({
 						id: itemId,
