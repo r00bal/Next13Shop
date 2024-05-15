@@ -9,13 +9,11 @@ import {
 export const changeItemQuantity = async ({
 	id,
 	quantity,
-	total,
 }: CartSetProductQuantityMutationVariables) => {
-	console.log({ id, quantity, total });
+	console.log("changeItemQuantity", { id, quantity });
 
 	return executeGraphql(CartSetProductQuantityDocument, {
 		id,
 		quantity,
-		total,
 	});
 };

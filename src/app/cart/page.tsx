@@ -24,14 +24,16 @@ export default async function CartPage() {
 				<tbody>
 					{cart.orderItems?.map((item) => {
 						const images = item?.product?.images;
-						const name = item?.product?.name || "";
+
 						if (!item.product) {
 							return null;
 						}
 						const { id: itemId } = item;
-						const { price } = item.product;
+						const { name } = item.product;
 
 						const { quantity } = item;
+						console.log({ itemId });
+
 						return (
 							<tr key={item.product.id}>
 								<td>
@@ -48,11 +50,7 @@ export default async function CartPage() {
 								</td>
 								<td>{name}</td>
 								<td>
-									<ChangeQuantity
-										itemId={itemId}
-										quantity={quantity}
-										total={price}
-									/>
+									<ChangeQuantity itemId={itemId} quantity={quantity} />
 								</td>
 								<td>{formatMoney(item.total)}</td>
 							</tr>

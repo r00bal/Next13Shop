@@ -10913,7 +10913,6 @@ export type CartFragment = { id: string, orderItems: Array<{ id: string, quantit
 export type CartSetProductQuantityMutationVariables = Exact<{
   id: Scalars['ID']['input'];
   quantity: Scalars['Int']['input'];
-  total: Scalars['Int']['input'];
 }>;
 
 
@@ -11112,8 +11111,8 @@ export const CartGetByIdDocument = new TypedDocumentString(`
   }
 }`) as unknown as TypedDocumentString<CartGetByIdQuery, CartGetByIdQueryVariables>;
 export const CartSetProductQuantityDocument = new TypedDocumentString(`
-    mutation CartSetProductQuantity($id: ID!, $quantity: Int!, $total: Int!) {
-  updateOrderItem(data: {quantity: $quantity, total: $total}, where: {id: $id}) {
+    mutation CartSetProductQuantity($id: ID!, $quantity: Int!) {
+  updateOrderItem(data: {quantity: $quantity}, where: {id: $id}) {
     id
   }
 }
