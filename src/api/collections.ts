@@ -6,14 +6,20 @@ import {
 } from "@/gql/graphql";
 
 export const getCollectionsList = async () => {
-	const grapglResponse = await executeGraphql(CollectionsGetListDocument, {});
+	const grapglResponse = await executeGraphql({
+		query: CollectionsGetListDocument,
+		variables: {},
+	});
 	return grapglResponse.collections;
 };
 export const getCollectionDescBySlug = async (
 	slug: CollectionGetBySlugQueryVariables["slug"],
 ) => {
-	const grapglResponse = await executeGraphql(CollectionGetBySlugDocument, {
-		slug,
+	const grapglResponse = await executeGraphql({
+		query: CollectionGetBySlugDocument,
+		variables: {
+			slug,
+		},
 	});
 	return grapglResponse.collections;
 };

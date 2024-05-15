@@ -12,8 +12,11 @@ export const changeItemQuantity = async ({
 }: CartSetProductQuantityMutationVariables) => {
 	console.log("changeItemQuantity", { id, quantity });
 
-	return executeGraphql(CartSetProductQuantityDocument, {
-		id,
-		quantity,
+	return executeGraphql({
+		query: CartSetProductQuantityDocument,
+		variables: {
+			id,
+			quantity,
+		},
 	});
 };

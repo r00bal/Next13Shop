@@ -8,17 +8,23 @@ import {
 } from "@/gql/graphql";
 
 export async function addProductToCart(cartId: string, productId: string) {
-	const { product } = await executeGraphql(ProductGetByIdDocument, {
-		id: productId,
+	const { product } = await executeGraphql({
+		query: ProductGetByIdDocument,
+		variables: {
+			id: productId,
+		},
 	});
 	if (!product) {
 		throw new Error(`Product with id ${productId} not found`);
 	}
 
-	await executeGraphql(CartAddItemDocument, {
-		cartId,
-		productId,
-		total: 2000,
+	await executeGraphql({
+		query: CartAddItemDocument,
+		variables: {
+			cartId,
+			productId,
+			total: 2000,
+		},
 	});
 }
 
@@ -46,9 +52,9 @@ export async function getCartFromCookies() {
 }
 
 async function getCartById(id: string) {
-	return executeGraphql(CartGetByIdDocument, { id });
+	return executeGraphql({ query: CartGetByIdDocument, variables: { id } });
 }
 
 async function createCart() {
-	return executeGraphql(CartCreateDocument, {});
+	return executeGraphql({ query: CartCreateDocument, variables: {} });
 }
