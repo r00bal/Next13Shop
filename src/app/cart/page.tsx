@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import NextImage from "next/image";
 import { formatMoney } from "./utils";
 import { ChangeQuantity } from "./ChangeQuantity";
+import { RemoveButton } from "./RemoveButton";
 import { getCartFromCookies } from "@/api/cart";
 
 export default async function CartPage() {
@@ -53,6 +54,9 @@ export default async function CartPage() {
 									<ChangeQuantity itemId={itemId} quantity={quantity} />
 								</td>
 								<td>{formatMoney(item.total)}</td>
+								<td>
+									<RemoveButton itemId={item.id} />
+								</td>
 							</tr>
 						);
 					})}

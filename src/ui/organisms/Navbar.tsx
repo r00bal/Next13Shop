@@ -2,6 +2,7 @@ import { type Route } from "next";
 import { Search } from "@/ui/atoms/Search";
 import { Cart } from "@/ui/atoms/Cart";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
+
 type NavLinkType = {
 	href: Route<string>;
 	label: string;

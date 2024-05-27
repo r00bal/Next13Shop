@@ -4,6 +4,8 @@ import { getCartFromCookies } from "@/api/cart";
 export const Cart = async () => {
 	const cart = await getCartFromCookies();
 	const quantity = cart?.orderItems?.length || 0;
+	console.log({ quantity });
+
 	return (
 		<button className="ml-2 h-8 w-12" type="button">
 			<Link href="/cart" className="flex items-center justify-center">

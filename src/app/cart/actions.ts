@@ -2,16 +2,24 @@
 
 import { executeGraphql } from "@/api/utils";
 import {
+	CartRemoveProductDocument,
 	CartSetProductQuantityDocument,
 	type CartSetProductQuantityMutationVariables,
 } from "@/gql/graphql";
+
+export const removeItem = (itemId: string) => {
+	return executeGraphql({
+		query: CartRemoveProductDocument,
+		variables: {
+			itemId,
+		},
+	});
+};
 
 export const changeItemQuantity = async ({
 	id,
 	quantity,
 }: CartSetProductQuantityMutationVariables) => {
-	console.log("changeItemQuantity", { id, quantity });
-
 	return executeGraphql({
 		query: CartSetProductQuantityDocument,
 		variables: {

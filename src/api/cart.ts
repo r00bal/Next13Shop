@@ -29,7 +29,6 @@ export async function addProductToCart(
 			productId,
 			total,
 		},
-		next: { tags: ["cart"] },
 	});
 }
 

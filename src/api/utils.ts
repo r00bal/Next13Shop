@@ -18,7 +18,6 @@ export const executeGraphql = async <TResult, TVariables>({
 	if (!process.env.GRAPHQL_URL) {
 		throw TypeError("GRAPHQL_URL is not defined");
 	}
-
 	const res = await fetch(process.env.GRAPHQL_URL, {
 		method: "POST",
 		cache,
@@ -35,7 +34,6 @@ export const executeGraphql = async <TResult, TVariables>({
 	});
 
 	const graphqlResponse = (await res.json()) as GraphQLResponse<TResult>;
-	console.log({ graphqlResponse: graphqlResponse.data });
 	if (graphqlResponse.errors) {
 		throw TypeError(`GraphQL Error`, {
 			cause: graphqlResponse.errors[0]?.message,

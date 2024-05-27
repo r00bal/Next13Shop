@@ -10910,6 +10910,13 @@ export type CartGetByIdQuery = { order?: { id: string, orderItems: Array<{ id: s
 
 export type CartFragment = { id: string, orderItems: Array<{ id: string, quantity: number, total: number, product?: { id: string, name: string, price: number, images: Array<{ url: string }> } | null }> };
 
+export type CartRemoveProductMutationVariables = Exact<{
+  itemId: Scalars['ID']['input'];
+}>;
+
+
+export type CartRemoveProductMutation = { deleteOrderItem?: { id: string } | null };
+
 export type CartSetProductQuantityMutationVariables = Exact<{
   id: Scalars['ID']['input'];
   quantity: Scalars['Int']['input'];
@@ -11110,6 +11117,13 @@ export const CartGetByIdDocument = new TypedDocumentString(`
     }
   }
 }`) as unknown as TypedDocumentString<CartGetByIdQuery, CartGetByIdQueryVariables>;
+export const CartRemoveProductDocument = new TypedDocumentString(`
+    mutation CartRemoveProduct($itemId: ID!) {
+  deleteOrderItem(where: {id: $itemId}) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<CartRemoveProductMutation, CartRemoveProductMutationVariables>;
 export const CartSetProductQuantityDocument = new TypedDocumentString(`
     mutation CartSetProductQuantity($id: ID!, $quantity: Int!) {
   updateOrderItem(data: {quantity: $quantity}, where: {id: $id}) {
