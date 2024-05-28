@@ -42,6 +42,9 @@ export const getProductsList = async ({
 			first,
 			skip,
 		},
+		next: {
+			revalidate: 15,
+		},
 	});
 	return grapglResponse.products;
 };

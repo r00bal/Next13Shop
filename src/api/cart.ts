@@ -29,6 +29,7 @@ export async function addProductToCart(
 			productId,
 			total,
 		},
+		cache: "no-cache",
 	});
 }
 
@@ -62,6 +63,7 @@ async function getCartById(id: string) {
 	return executeGraphql({
 		query: CartGetByIdDocument,
 		variables: { id },
+		cache: "no-cache",
 		next: { tags: ["cart"] },
 	});
 }
@@ -70,5 +72,6 @@ async function createCart() {
 	return executeGraphql({
 		query: CartCreateDocument,
 		variables: {},
+		cache: "no-cache",
 	});
 }
