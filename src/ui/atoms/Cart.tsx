@@ -3,8 +3,11 @@ import { getCartFromCookies } from "@/api/cart";
 
 export const Cart = async () => {
 	const cart = await getCartFromCookies();
-	const quantity = cart?.orderItems?.length || 0;
-	console.log({ quantity });
+	const quantity = cart?.orderItems?.reduce(
+		(acc, item) => acc + item.quantity,
+		0,
+	);
+	console.log("Cart quantity", { quantity });
 
 	return (
 		<button className="ml-2 h-8 w-12" type="button">

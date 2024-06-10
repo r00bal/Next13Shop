@@ -12,24 +12,26 @@ export async function addProductToCart(
 	productId: string,
 	total: number,
 ) {
+	console.log("addProductToCart START");
+
 	const { product } = await executeGraphql({
 		query: ProductGetByIdDocument,
 		variables: {
 			id: productId,
 		},
 	});
+
 	if (!product) {
 		throw new Error(`Product with id ${productId} not found`);
 	}
-
-	await executeGraphql({
+	return executeGraphql({
 		query: CartAddItemDocument,
 		variables: {
 			cartId,
 			productId,
 			total,
 		},
-		cache: "no-cache",
+		cache: "no-store",
 	});
 }
 
@@ -50,9 +52,15 @@ export async function getOrCreateCart() {
 }
 
 export async function getCartFromCookies() {
+	console.log("getCartFromCookies");
 	const cartId = cookies().get("cartId")?.value;
 	if (cartId) {
 		const { order: cart } = await getCartById(cartId);
+		const quantity = cart?.orderItems?.reduce(
+			(acc, item) => acc + item.quantity,
+			0,
+		);
+		console.log({ quantity });
 		if (cart) {
 			return cart;
 		}
@@ -60,10 +68,11 @@ export async function getCartFromCookies() {
 }
 
 async function getCartById(id: string) {
-	return executeGraphql({
+	console.log("getCartById");
+	return await executeGraphql({
 		query: CartGetByIdDocument,
 		variables: { id },
-		cache: "no-cache",
+		cache: "no-store",
 		next: { tags: ["cart"] },
 	});
 }
@@ -72,6 +81,6 @@ async function createCart() {
 	return executeGraphql({
 		query: CartCreateDocument,
 		variables: {},
-		cache: "no-cache",
+		cache: "no-store",
 	});
 }

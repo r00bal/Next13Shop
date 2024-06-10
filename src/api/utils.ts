@@ -39,6 +39,8 @@ export const executeGraphql = async <TResult, TVariables>({
 			cause: graphqlResponse.errors[0]?.message,
 		});
 	}
+	// const test = query.replace(/[\r\n]+/gm, "");
+	// console.log({ query: test, variables, response: graphqlResponse.data });
 
 	return graphqlResponse.data;
 };

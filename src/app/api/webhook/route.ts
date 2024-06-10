@@ -10,9 +10,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 		"productId" in body &&
 		typeof body.productId === "string"
 	) {
-		console.log(`Revalidating /product/${body.productId}`);
 		revalidatePath(`/product/${body.productId}`);
-		console.log(`Revalidating /products`);
+
 		revalidatePath(`/products`);
 		return NextResponse.json({}, { status: 201 });
 	}
