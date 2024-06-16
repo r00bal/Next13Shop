@@ -67,9 +67,9 @@ export async function getCartFromCookies() {
 	}
 }
 
-async function getCartById(id: string) {
+function getCartById(id: string) {
 	console.log("getCartById");
-	return await executeGraphql({
+	return executeGraphql({
 		query: CartGetByIdDocument,
 		variables: { id },
 		cache: "no-store",

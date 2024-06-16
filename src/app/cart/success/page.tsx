@@ -19,8 +19,10 @@ export default async function CartSuccess({
 	);
 
 	return (
-		<div className="flex w-full flex-grow items-center justify-center p-20 text-black">
-			Payment status: {stripeCheckoutSession.payment_status}
+		<div className="flex w-full flex-grow items-center justify-center p-3 text-black">
+			<h2 className="bg-cyan-300">
+				Payment status: {stripeCheckoutSession.payment_status}
+			</h2>
 		</div>
 	);
 }
