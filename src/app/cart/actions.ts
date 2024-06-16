@@ -60,8 +60,7 @@ export async function handleStripePaymentAction() {
 							price_data: {
 								currency: "usd",
 								product_data: {
-									name: item.product.name,
-									description: item?.product?.description || ("" as string),
+									name: item.product?.name,
 									images: item.product.images.map((i) => i.url),
 								},
 								unit_amount: item.product.price || 0,
@@ -70,7 +69,7 @@ export async function handleStripePaymentAction() {
 					  }
 					: null,
 			)
-			.filter(Boolean),
+			.filter((e) => Boolean(e)) as LineItem[],
 		mode: "payment",
 		success_url: `http://localhost:3000/cart/success?session_id={CHECKOUT_SESSION_ID}`,
 		cancel_url: `http://localhost:3000/cart/canceled`,
@@ -80,3 +79,5 @@ export async function handleStripePaymentAction() {
 		redirect(session.url);
 	}
 }
+
+type LineItem = Stripe.Checkout.SessionCreateParams.LineItem;
