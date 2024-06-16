@@ -29,15 +29,19 @@ export async function POST(request: NextRequest): Promise<Response> {
 
 	switch (event.type) {
 		case "checkout.session.completed": {
-			console.log(event);
+			// to test open listener pipe in the terminal:
+			//  stripe listen --forward-to localhost:3000/api/webhook/stripe
+			// in the dashbord you shpuld that local listener is actice:
+			// https://dashboard.stripe.com/test/webhooks
+			// then trigger the event from the terminal
+			//  stripe trigger checkout.session.completed --add checkout_session:metadata.channelId=123
+			//  docs: https://dashboard.stripe.com/test/webhooks/create?endpoint_location=local
+
+			console.dir(event, { depth: 999 });
 			event.data.object.metadata?.cartId;
 		}
-		case "payment_intent.succeeded":
-			console.log(event);
-			event.data.object;
-			// Then define and call a function to handle the event payment_intent.succeeded
-			break;
-		//
+		case "payment_intent.succeeded": {
+		}
 		case "checkout.session.expired": {
 		}
 		case "checkout.session.async_payment_failed": {
