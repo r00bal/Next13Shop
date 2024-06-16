@@ -1,8 +1,8 @@
+import { revalidateTag } from "next/cache";
 import { Dropdown } from "./Dropdown";
 import { AddToCartButton } from "./AddToCartButton";
 import { type VariantFragment, type ProductGetByIdQuery } from "@/gql/graphql";
 import { getOrCreateCart, addProductToCart } from "@/api/cart";
-import { revalidateTag } from "next/cache";
 
 type ProductPageItemProps = {
 	product: Omit<NonNullable<ProductGetByIdQuery["product"]>, "variants"> & {
