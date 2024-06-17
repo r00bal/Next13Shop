@@ -2,11 +2,14 @@ import { getProductsList, getProductsTotal, PRODUCTS_TO_TAKE } from "@/api";
 import { getPages, getSkip } from "@/utils";
 import { Products } from "@/ui/organisms/Products";
 
-export async function generateStaticParams() {
-	const total = await getProductsTotal();
-	const pages = getPages(total, PRODUCTS_TO_TAKE);
-	return pages.map((page) => ({ pageNumber: String(page) }));
-}
+// static build is turned off due to 'changed from static to dynamic at runtime ' error,  reason: cookies
+// https://nextjs.org/docs/messages/app-static-to-dynamic-error
+
+// export async function generateStaticParams() {
+// 	const total = await getProductsTotal();
+// 	const pages = getPages(total, PRODUCTS_TO_TAKE);
+// 	return pages.map((page) => ({ pageNumber: String(page) }));
+// }
 
 export default async function ProductsPage({
 	params,

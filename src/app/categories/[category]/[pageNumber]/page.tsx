@@ -2,7 +2,6 @@ import { type Metadata } from "next";
 import {
 	PRODUCTS_TO_TAKE,
 	getProductsListByCategory,
-	getProductsTotal,
 	getProductsTotalByCategory,
 } from "@/api";
 import { getPages, getSkip } from "@/utils";
@@ -18,11 +17,14 @@ export async function generateMetadata({
 	};
 }
 
-export async function generateStaticParams() {
-	const total = await getProductsTotal();
-	const pages = getPages(total, PRODUCTS_TO_TAKE);
-	return pages.map((page) => ({ pageNumber: String(page) }));
-}
+// static build is turned off due to 'changed from static to dynamic at runtime ' error,  reason: cookies
+// https://nextjs.org/docs/messages/app-static-to-dynamic-error
+
+// export async function generateStaticParams() {
+// 	const total = await getProductsTotal();
+// 	const pages = getPages(total, PRODUCTS_TO_TAKE);
+// 	return pages.map((page) => ({ pageNumber: String(page) }));
+// }
 
 export default async function ProductsPage({
 	params: { category, pageNumber: pageNumberProp },

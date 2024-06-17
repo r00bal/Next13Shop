@@ -1,15 +1,17 @@
 import { Suspense } from "react";
-import { getProductById, getProductsList } from "@/api/products";
+import { getProductById } from "@/api/products";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { ProductPageItemDescription } from "@/ui/atoms/ProductPageItemDescription";
 import { SimilarProducts } from "@/ui/organisms/SimilarProducts";
 import { Spinner } from "@/ui/atoms/Spinner";
 
-export async function generateStaticParams() {
-	const products = await getProductsList({});
+// static build is turned off due to 'changed from static to dynamic at runtime ' error,  reason: cookies
+// https://nextjs.org/docs/messages/app-static-to-dynamic-error
 
-	return products.map((product) => ({ productId: product.id }));
-}
+// export async function generateStaticParams() {
+// 	const products = await getProductsList({});
+// 	return products.map((product) => ({ productId: product.id }));
+// }
 
 export type ProductPageParams = {
 	params: { productId: string; variant?: string[] };
