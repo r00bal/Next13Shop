@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { type ChildrenType } from "../../types";
 import { getProductById } from "@/api";
 
@@ -15,5 +16,9 @@ export async function generateMetadata({
 }
 
 export default function ProductLayout({ children }: ChildrenType) {
-	return <section className="mx-auto grid max-w-7xl p-8">{children}</section>;
+	return (
+		<section className="mx-auto grid max-w-7xl p-8">
+			<Suspense fallback>{children}</Suspense>
+		</section>
+	);
 }
