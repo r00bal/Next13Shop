@@ -25,5 +25,9 @@ export default async function ProductsPage({
 	const total = await getProductsTotal();
 	const pages = getPages(total, PRODUCTS_TO_TAKE);
 
+	// Testing error loading state and error handling in Next.js
+	// await new Promise((resolve,reject) => setTimeout(resolve, 5000));
+	// await new Promise((_,reject) => setTimeout(reject, 5000));
+
 	return <Products pages={pages} products={products} />;
 }

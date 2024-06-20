@@ -23,7 +23,7 @@ export const Navbar = async () => {
 		>
 			<ul className="m-auto flex h-16 w-full max-w-7xl items-center  ">
 				{navLinks.map(({ href, label }) => (
-					<li key="home" className="h-full px-5">
+					<li key={label} className="h-full px-5">
 						<ActiveLink exact={href === "/"} href={href}>
 							{label}
 						</ActiveLink>

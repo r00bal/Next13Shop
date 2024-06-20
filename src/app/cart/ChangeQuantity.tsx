@@ -1,5 +1,6 @@
 "use client";
 import { experimental_useOptimistic as useOptimistic } from "react";
+import { useRouter } from "next/navigation";
 import { changeItemQuantity } from "./actions";
 
 export function ChangeQuantity({
@@ -13,7 +14,7 @@ export function ChangeQuantity({
 		quantity,
 		(_state, newQuantity: number) => newQuantity,
 	);
-
+	const router = useRouter();
 	return (
 		<form className="flex">
 			<button
@@ -25,6 +26,7 @@ export function ChangeQuantity({
 						id: itemId,
 						quantity: optimisticQuantity - 1,
 					});
+					router.refresh();
 				}}
 			>
 				-
@@ -39,6 +41,7 @@ export function ChangeQuantity({
 						id: itemId,
 						quantity: optimisticQuantity + 1,
 					});
+					router.refresh();
 				}}
 			>
 				+

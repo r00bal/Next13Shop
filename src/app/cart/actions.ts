@@ -17,6 +17,7 @@ export const removeItem = (itemId: string) => {
 		variables: {
 			itemId,
 		},
+		cache: "no-store",
 	});
 };
 
@@ -29,6 +30,7 @@ export const changeItemQuantity = async ({
 		variables: {
 			id,
 			quantity,
+			cache: "no-store",
 		},
 	});
 };

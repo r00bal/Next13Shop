@@ -12,13 +12,12 @@ export async function addProductToCart(
 	productId: string,
 	total: number,
 ) {
-	console.log("addProductToCart START");
-
 	const { product } = await executeGraphql({
 		query: ProductGetByIdDocument,
 		variables: {
 			id: productId,
 		},
+		cache: "no-store",
 	});
 
 	if (!product) {
@@ -52,15 +51,9 @@ export async function getOrCreateCart() {
 }
 
 export async function getCartFromCookies() {
-	console.log("getCartFromCookies");
 	const cartId = cookies().get("cartId")?.value;
 	if (cartId) {
 		const { order: cart } = await getCartById(cartId);
-		const quantity = cart?.orderItems?.reduce(
-			(acc, item) => acc + item.quantity,
-			0,
-		);
-		console.log({ quantity });
 		if (cart) {
 			return cart;
 		}
@@ -68,7 +61,6 @@ export async function getCartFromCookies() {
 }
 
 function getCartById(id: string) {
-	console.log("getCartById");
 	return executeGraphql({
 		query: CartGetByIdDocument,
 		variables: { id },
