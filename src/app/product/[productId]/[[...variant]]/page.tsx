@@ -1,7 +1,9 @@
+import { Suspense } from "react";
 import { getProductById } from "@/api/products";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { ProductPageItemDescription } from "@/ui/atoms/ProductPageItemDescription";
 import { SimilarProducts } from "@/ui/organisms/SimilarProducts";
+import { Comments } from "@/ui/organisms/Comments";
 
 // static build is turned off due to 'changed from static to dynamic at runtime ' error,  reason: cookies
 // https://nextjs.org/docs/messages/app-static-to-dynamic-error
@@ -33,9 +35,9 @@ export default async function ProductPage({
 				{!!product && <ProductPageItemDescription product={product} />}
 			</article>
 
-			{/* <Suspense fallback={<Spinner size={32} color="blue" />}> */}
-			{slug && <SimilarProducts slug={slug} />}
-			{/* </Suspense> */}
+			<Suspense fallback>{slug && <SimilarProducts slug={slug} />}</Suspense>
+
+			<Comments />
 		</section>
 	);
 }
