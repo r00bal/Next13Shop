@@ -1,5 +1,7 @@
 import { Input } from "../atoms/Input";
-
+import { RatingStarsDisplay } from "../molecules/RatingStarsDisplay";
+import { Comment } from "../molecules/Comment";
+import { RatingStarsInteractive } from "../molecules/RatingStarsInteractive";
 export const Comments = () => {
 	return (
 		<div className="mx-auto max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-8 lg:py-16">
@@ -9,78 +11,8 @@ export const Comments = () => {
 				</h2>
 				<div className="mt-3 flex items-center">
 					<div title="3.6 out of 5 stars">
-						<div className="flex items-center">
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								className="lucide lucide-star h-5 w-5 flex-shrink-0 fill-current text-yellow-400"
-								aria-hidden="true"
-							>
-								<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-							</svg>
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								className="lucide lucide-star h-5 w-5 flex-shrink-0 fill-current text-yellow-400"
-								aria-hidden="true"
-							>
-								<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-							</svg>
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								className="lucide lucide-star h-5 w-5 flex-shrink-0 fill-current text-yellow-400"
-								aria-hidden="true"
-							>
-								<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-							</svg>
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								className="lucide lucide-star h-5 w-5 flex-shrink-0 fill-current text-yellow-400"
-								aria-hidden="true"
-							>
-								<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-							</svg>
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								className="lucide lucide-star h-5 w-5 flex-shrink-0 text-gray-300"
-								aria-hidden="true"
-							>
-								<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-							</svg>
-						</div>
+						<RatingStarsDisplay rating={4} />
+						<RatingStarsInteractive initialRating={4} />
 						<p className="sr-only">3.6 out of 5 stars</p>
 					</div>
 					<p className="ml-2 text-sm text-gray-900">Based on 292 reviews</p>
@@ -246,125 +178,7 @@ export const Comments = () => {
 				</div>
 			</div>
 			<div className="mt-16 lg:col-span-7 lg:col-start-6 lg:mt-0">
-				<div className="py-12">
-					<div className="flex items-center">
-						<img
-							alt="Ross Weissnat"
-							loading="lazy"
-							width="48"
-							height="48"
-							decoding="async"
-							data-nimg="1"
-							className="h-12 w-12 rounded-full"
-						/>
-						<div className="ml-4">
-							<h4 className="text-sm font-bold text-gray-900">Ross Weissnat</h4>
-							<div className="mt-1 flex flex-row items-center gap-2">
-								<p aria-hidden="true" className="small-caps text-sm">
-									5/5
-								</p>
-								<div className="flex items-center justify-end">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										className="lucide lucide-star h-5 w-5 flex-shrink-0 fill-current text-yellow-400"
-										aria-hidden="true"
-									>
-										<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-									</svg>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										className="lucide lucide-star h-5 w-5 flex-shrink-0 fill-current text-yellow-400"
-										aria-hidden="true"
-									>
-										<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-									</svg>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										className="lucide lucide-star h-5 w-5 flex-shrink-0 fill-current text-yellow-400"
-										aria-hidden="true"
-									>
-										<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-									</svg>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										className="lucide lucide-star h-5 w-5 flex-shrink-0 fill-current text-yellow-400"
-										aria-hidden="true"
-									>
-										<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-									</svg>
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="24"
-										height="24"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										className="lucide lucide-star h-5 w-5 flex-shrink-0 fill-current text-yellow-400"
-										aria-hidden="true"
-									>
-										<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-									</svg>
-								</div>
-								<p className="sr-only">5 out of 5 stars</p>
-							</div>
-						</div>
-					</div>
-					<div className="">
-						<p className="mb-2 mt-4 space-y-6 text-sm font-bold text-gray-600">
-							Accusantium vapulus timidus.
-						</p>
-						<p className="mt-2 text-sm italic text-gray-600">
-							Subiungo causa verbera valde appello cupiditas placeat. Curvo tero
-							arma quo minus cum ait amoveo. Degusto libero animi.
-						</p>
-						<p className="mt-2 text-sm italic text-gray-600">
-							Abstergo summopere stultus damno tutamen. Subseco aestus umbra
-							ascisco abeo pectus. Caveo doloremque suppono curatio sublime
-							ciminatio deleo sumptus sponte.
-						</p>
-						<p className="mt-2 text-sm italic text-gray-600">
-							Delectatio ademptio adeo summopere occaecati sopor voluptates
-							commodo. Solus deripio culpo uterque theologus strenuus
-							necessitatibus asperiores quae certus. Titulus absconditus
-							possimus bis autus.
-						</p>
-					</div>
-				</div>
+				<Comment />
 			</div>
 		</div>
 	);
