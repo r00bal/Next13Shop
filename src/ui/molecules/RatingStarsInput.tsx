@@ -13,12 +13,16 @@ const setInitialRating = (initialRating: number, length: number) =>
 			};
 		});
 
-export const RatingStarsForm = ({
+export const RatingStarsInput = ({
 	initialRating = 0,
 	length = 5,
+	label,
+	name,
 }: {
 	initialRating?: number;
 	length?: number;
+	label: string;
+	name: string;
 }) => {
 	const [rating, setRating] = useState(() =>
 		setInitialRating(initialRating, length),
@@ -56,7 +60,7 @@ export const RatingStarsForm = ({
 
 	return (
 		<div className="flex items-center">
-			<span className="text-xs text-gray-700">Rating</span>
+			<span className="text-xs text-gray-700">{label}</span>
 			<fieldset className="stars-rating flex flex-row justify-end">
 				{rating.map(({ index, checked }) => {
 					const isChecked = checkedInputNumber === index;
@@ -69,7 +73,7 @@ export const RatingStarsForm = ({
 								id={`rating-${index}`}
 								type="radio"
 								value={index}
-								name="rating"
+								name={name}
 								checked={isChecked}
 								className="sr-only"
 							/>

@@ -1,7 +1,7 @@
 import { Input } from "../atoms/Input";
 import { RatingStarsDisplay } from "../molecules/RatingStarsDisplay";
 import { Comment } from "../molecules/Comment";
-import { RatingStarsForm } from "../molecules/RatingStarsForm";
+import { RatingStarsInput } from "../molecules/RatingStarsInput";
 import { TextArea } from "../atoms/TextArea";
 export const Comments = () => {
 	return (
@@ -13,7 +13,7 @@ export const Comments = () => {
 				<div className="mt-3 flex items-center">
 					<div title="3.6 out of 5 stars">
 						<RatingStarsDisplay rating={4} />
-						<RatingStarsForm initialRating={4} />
+
 						<p className="sr-only">3.6 out of 5 stars</p>
 					</div>
 					<p className="ml-2 text-sm text-gray-900">Based on 292 reviews</p>
@@ -36,10 +36,7 @@ export const Comments = () => {
 						<input type="hidden" value="UHJvZHVjdDox" name="productId" />
 						<Input title="Review title" name="headlines" />
 						<TextArea label="Review content" name="content" />
-						<div>
-							<span className="text-xs text-gray-700">Rating</span>
-							<RatingStarsForm />
-						</div>
+						<RatingStarsInput label="Rating" name="rating" />
 						<Input title="Name" name="name" />
 						<Input title="Email" name="email" type="email" />
 						<button
