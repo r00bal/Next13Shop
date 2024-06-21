@@ -36,8 +36,7 @@ export default async function ProductPage({
 			</article>
 
 			<Suspense fallback>{slug && <SimilarProducts slug={slug} />}</Suspense>
-
-			<Comments />
+			<Comments productId={productId} />
 		</section>
 	);
 }

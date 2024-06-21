@@ -3,7 +3,12 @@ import { RatingStarsDisplay } from "../molecules/RatingStarsDisplay";
 import { Comment } from "../molecules/Comment";
 import { RatingStarsInput } from "../molecules/RatingStarsInput";
 import { TextArea } from "../atoms/TextArea";
-export const Comments = () => {
+
+export const Comments = ({ productId }: { productId: string }) => {
+	const handleCommentAction = async (formData: FormData) => {
+		"use server";
+		console.dir({ formData }, { depth: null });
+	};
 	return (
 		<div className="mx-auto max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-8 lg:py-16">
 			<div className="lg:col-span-4">
@@ -30,10 +35,11 @@ export const Comments = () => {
 						customers
 					</p>
 					<form
+						action={handleCommentAction}
 						data-testid="add-review-form"
 						className="mt-2 flex flex-col gap-y-2"
 					>
-						<input type="hidden" value="UHJvZHVjdDox" name="productId" />
+						<input type="hidden" value={productId} name="productId" />
 						<Input title="Review title" name="headlines" />
 						<TextArea label="Review content" name="content" />
 						<RatingStarsInput label="Rating" name="rating" />
