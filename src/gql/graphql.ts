@@ -11000,6 +11000,18 @@ export type ProductsGetQuantityQueryVariables = Exact<{ [key: string]: never; }>
 
 export type ProductsGetQuantityQuery = { productsConnection: { aggregate: { count: number } } };
 
+export type ReviewCreateMutationVariables = Exact<{
+  headline: Scalars['String']['input'];
+  name: Scalars['String']['input'];
+  email: Scalars['String']['input'];
+  content: Scalars['String']['input'];
+  rating: Scalars['Int']['input'];
+  productId: Scalars['ID']['input'];
+}>;
+
+
+export type ReviewCreateMutation = { createReview?: { id: string } | null };
+
 export type VariantFragment = { id: string, name: string, product?: { id: string, price: number } | null };
 
 export class TypedDocumentString<TResult, TVariables>
@@ -11318,3 +11330,12 @@ export const ProductsGetQuantityDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProductsGetQuantityQuery, ProductsGetQuantityQueryVariables>;
+export const ReviewCreateDocument = new TypedDocumentString(`
+    mutation ReviewCreate($headline: String!, $name: String!, $email: String!, $content: String!, $rating: Int!, $productId: ID!) {
+  createReview(
+    data: {headline: $headline, name: $name, email: $email, content: $content, rating: $rating, product: {connect: {id: $productId}}}
+  ) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<ReviewCreateMutation, ReviewCreateMutationVariables>;

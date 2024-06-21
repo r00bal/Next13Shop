@@ -3,11 +3,41 @@ import { RatingStarsDisplay } from "../molecules/RatingStarsDisplay";
 import { Comment } from "../molecules/Comment";
 import { RatingStarsInput } from "../molecules/RatingStarsInput";
 import { TextArea } from "../atoms/TextArea";
+import { executeGraphql } from "@/api/utils";
+import { ReviewCreateDocument } from "@/gql/graphql";
 
 export const Comments = ({ productId }: { productId: string }) => {
 	const handleCommentAction = async (formData: FormData) => {
 		"use server";
 		console.dir({ formData }, { depth: null });
+		const { productId, headlines, content, rating, name, email } =
+			Object.fromEntries(
+				Array.from(formData.entries()).map(([key, value]) => [
+					key,
+					String(value),
+				]),
+			);
+		return (
+			productId &&
+			headlines &&
+			content &&
+			rating &&
+			name &&
+			email &&
+			executeGraphql({
+				query: ReviewCreateDocument,
+				variables: {
+					productId: productId,
+					headline: headlines,
+					content: content,
+					rating: Number(rating),
+					name: name,
+					email: email,
+				},
+				cache: "no-store",
+			})
+		);
+		//ReviewCreateDocument
 	};
 	return (
 		<div className="mx-auto max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-8 lg:py-16">
