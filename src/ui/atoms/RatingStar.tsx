@@ -18,7 +18,7 @@ export const RatingStar = ({
 			stroke-width="2"
 			stroke-linecap="round"
 			stroke-linejoin="round"
-			className={`lucide lucide-star h-5 w-5 flex-shrink-0 fill-current ${
+			className={`lucide lucide-star h-5 w-5 flex-shrink-0 cursor-pointer fill-current ${
 				checked || hovered
 					? hovered
 						? "text-yellow-100"

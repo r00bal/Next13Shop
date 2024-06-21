@@ -5,7 +5,7 @@ export const Input = ({ title, name, type }: InputProps) => {
 		<label>
 			<span className="text-xs text-gray-700">{title}</span>
 			<input
-				className="mt-1 block h-10 w-full rounded-md border-gray-300 text-sm font-light text-zinc-900 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+				className=" mt-1 block h-10 w-full rounded-md border-gray-300 p-1 text-sm font-light text-zinc-900 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
 				name={name}
 				type={type}
 			/>
