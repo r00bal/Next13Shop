@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { getProductById } from "@/api/products";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { ProductPageItemDescription } from "@/ui/atoms/ProductPageItemDescription";
-import { Comments } from "@/ui/organisms/Comments";
+import { Comments } from "@/ui/organisms/Comments.1";
 
 // static build is turned off due to 'changed from static to dynamic at runtime ' error,  reason: cookies
 // https://nextjs.org/docs/messages/app-static-to-dynamic-error
