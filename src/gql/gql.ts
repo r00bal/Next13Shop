@@ -34,7 +34,7 @@ const documents = {
     "query ProductsGetListWithBestRatings($first: Int) {\n  products(where: {reviews_some: {rating_gte: 4}}, first: $first) {\n    ...ProductListItem\n  }\n}": types.ProductsGetListWithBestRatingsDocument,
     "query ProductsGetQuantity {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductsGetQuantityDocument,
     "mutation ReviewCreate($headline: String!, $name: String!, $email: String!, $content: String!, $rating: Int!, $productId: ID!) {\n  createReview(\n    data: {headline: $headline, name: $name, email: $email, content: $content, rating: $rating, product: {connect: {id: $productId}}}\n  ) {\n    id\n  }\n}": types.ReviewCreateDocument,
-    "fragment ReviewListItem on Review {\n  id\n  name\n  email\n  content\n  createdAt\n  rating\n  product {\n    id\n    name\n  }\n  createdBy {\n    name\n    picture\n  }\n}": types.ReviewListItemFragmentDoc,
+    "fragment ReviewListItem on Review {\n  id\n  name\n  email\n  headline\n  content\n  createdAt\n  rating\n  product {\n    id\n    name\n  }\n  createdBy {\n    name\n    picture\n  }\n}": types.ReviewListItemFragmentDoc,
     "query ReviewsGetById($id: ID!) {\n  reviews(where: {product: {id: $id}}, stage: DRAFT) {\n    ...ReviewListItem\n  }\n}": types.ReviewsGetByIdDocument,
     "fragment Variant on ProductSizeColorVariant {\n  id\n  name\n  product {\n    id\n    price\n  }\n}": types.VariantFragmentDoc,
 };
@@ -122,7 +122,7 @@ export function graphql(source: "mutation ReviewCreate($headline: String!, $name
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "fragment ReviewListItem on Review {\n  id\n  name\n  email\n  content\n  createdAt\n  rating\n  product {\n    id\n    name\n  }\n  createdBy {\n    name\n    picture\n  }\n}"): typeof import('./graphql').ReviewListItemFragmentDoc;
+export function graphql(source: "fragment ReviewListItem on Review {\n  id\n  name\n  email\n  headline\n  content\n  createdAt\n  rating\n  product {\n    id\n    name\n  }\n  createdBy {\n    name\n    picture\n  }\n}"): typeof import('./graphql').ReviewListItemFragmentDoc;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

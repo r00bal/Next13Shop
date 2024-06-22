@@ -11012,14 +11012,14 @@ export type ReviewCreateMutationVariables = Exact<{
 
 export type ReviewCreateMutation = { createReview?: { id: string } | null };
 
-export type ReviewListItemFragment = { id: string, name: string, email: string, content: string, createdAt: unknown, rating: number, product?: { id: string, name: string } | null, createdBy?: { name: string, picture?: string | null } | null };
+export type ReviewListItemFragment = { id: string, name: string, email: string, headline: string, content: string, createdAt: unknown, rating: number, product?: { id: string, name: string } | null, createdBy?: { name: string, picture?: string | null } | null };
 
 export type ReviewsGetByIdQueryVariables = Exact<{
   id: Scalars['ID']['input'];
 }>;
 
 
-export type ReviewsGetByIdQuery = { reviews: Array<{ id: string, name: string, email: string, content: string, createdAt: unknown, rating: number, product?: { id: string, name: string } | null, createdBy?: { name: string, picture?: string | null } | null }> };
+export type ReviewsGetByIdQuery = { reviews: Array<{ id: string, name: string, email: string, headline: string, content: string, createdAt: unknown, rating: number, product?: { id: string, name: string } | null, createdBy?: { name: string, picture?: string | null } | null }> };
 
 export type VariantFragment = { id: string, name: string, product?: { id: string, price: number } | null };
 
@@ -11096,6 +11096,7 @@ export const ReviewListItemFragmentDoc = new TypedDocumentString(`
   id
   name
   email
+  headline
   content
   createdAt
   rating
@@ -11376,6 +11377,7 @@ export const ReviewsGetByIdDocument = new TypedDocumentString(`
   id
   name
   email
+  headline
   content
   createdAt
   rating

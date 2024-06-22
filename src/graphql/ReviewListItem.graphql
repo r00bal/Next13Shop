@@ -2,6 +2,7 @@ fragment ReviewListItem on Review {
 	id
 	name
 	email
+	headline
 	content
 	createdAt
 	rating

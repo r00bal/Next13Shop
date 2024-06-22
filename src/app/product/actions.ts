@@ -2,26 +2,24 @@
 import { revalidateTag } from "next/cache";
 import { executeGraphql } from "@/api/utils";
 import { ReviewCreateDocument } from "@/gql/graphql";
+import { type AddCommentActionT } from "@/ui/molecules/CommentsForm";
 
-export const getReviewFormData = (formData: FormData) => {
-	return Object.fromEntries(
-		Array.from(formData.entries()).map(([key, value]) => [key, String(value)]),
-	);
-};
+export const addCommentAction = async (newReview: AddCommentActionT) => {
+	const { productId, headline, content, rating, name, email } = newReview;
+	console.log("addCommentAction", {
+		productId,
+		headline,
+		content,
+		rating,
+		name,
+		email,
+	});
 
-export const addCommentAction = async (formData: FormData) => {
-	console.dir({ formData }, { depth: null });
-	const { productId, headlines, content, rating, name, email } =
-		getReviewFormData(formData);
-	if (!productId || !headlines || !content || !rating || !name || !email) {
-		throw new Error("Missing required fields");
-		return;
-	}
 	await executeGraphql({
 		query: ReviewCreateDocument,
 		variables: {
-			productId: productId,
-			headline: headlines,
+			productId,
+			headline,
 			content: content,
 			rating: Number(rating),
 			name: name,

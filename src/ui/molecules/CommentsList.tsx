@@ -1,8 +1,8 @@
-import { type ReviewListItemFragment } from "@/gql/graphql";
+import { type CommentType } from "@/api/reviews";
 import { Comment } from "@/ui/molecules/Comment";
 
 type CommentsListProps = {
-	reviews?: ReviewListItemFragment[];
+	reviews?: CommentType[];
 };
 
 export const CommentsList = async ({ reviews }: CommentsListProps) => {

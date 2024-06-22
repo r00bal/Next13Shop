@@ -1,20 +1,18 @@
 import { RatingStarsDisplay } from "./RatingStarsDisplay";
-import { type ReviewListItemFragment } from "@/gql/graphql";
+import { type CommentType } from "@/api/reviews";
 import { Avatar } from "@/ui/atoms/Avatatar";
 
-type CommentProps = { comment: ReviewListItemFragment };
+type CommentProps = { comment: CommentType };
 
 export const Comment = ({ comment }: CommentProps) => {
-	const { name, content, rating, createdBy } = comment;
-	const { picture } = createdBy || {};
-
+	const { name, content, rating, headline, picture } = comment;
 	return (
 		<div className="py-12">
 			<div className="flex items-center">
 				<Avatar src={picture || ""} alt={name} />
 
 				<div className="ml-4">
-					<h4 className="text-sm font-bold text-gray-900">{name}</h4>
+					<h4 className="text-sm font-bold text-gray-900">{headline}</h4>
 					<div className="mt-1 flex flex-row items-center gap-2">
 						<p aria-hidden="true" className="small-caps text-sm text-gray-900">
 							{rating}/5
