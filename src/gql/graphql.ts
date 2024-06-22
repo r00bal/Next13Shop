@@ -11012,6 +11012,13 @@ export type ReviewCreateMutationVariables = Exact<{
 
 export type ReviewCreateMutation = { createReview?: { id: string } | null };
 
+export type ReviewsGetByIdQueryVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type ReviewsGetByIdQuery = { reviews: Array<{ id: string, name: string, email: string, content: string, createdAt: unknown, rating: number, product?: { id: string, name: string } | null, createdBy?: { name: string, picture?: string | null } | null }> };
+
 export type VariantFragment = { id: string, name: string, product?: { id: string, price: number } | null };
 
 export class TypedDocumentString<TResult, TVariables>
@@ -11339,3 +11346,23 @@ export const ReviewCreateDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ReviewCreateMutation, ReviewCreateMutationVariables>;
+export const ReviewsGetByIdDocument = new TypedDocumentString(`
+    query ReviewsGetById($id: ID!) {
+  reviews(where: {product: {id: $id}}, stage: DRAFT) {
+    id
+    name
+    email
+    content
+    createdAt
+    rating
+    product {
+      id
+      name
+    }
+    createdBy {
+      name
+      picture
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ReviewsGetByIdQuery, ReviewsGetByIdQueryVariables>;

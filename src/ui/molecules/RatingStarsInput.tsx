@@ -6,9 +6,10 @@ import { RatingStar } from "../atoms/RatingStar";
 const setInitialRating = (initialRating: number, length: number) =>
 	Array(length)
 		.fill(0)
-		.map((_, index) => {
+		.map((_, i) => {
+			const index = i + 1;
 			return {
-				index: index + 1,
+				index: index,
 				checked: index <= initialRating,
 			};
 		});

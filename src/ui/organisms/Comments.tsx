@@ -1,44 +1,12 @@
+import { Suspense } from "react";
 import { Input } from "../atoms/Input";
 import { RatingStarsDisplay } from "../molecules/RatingStarsDisplay";
-import { Comment } from "../molecules/Comment";
 import { RatingStarsInput } from "../molecules/RatingStarsInput";
 import { TextArea } from "../atoms/TextArea";
-import { executeGraphql } from "@/api/utils";
-import { ReviewCreateDocument } from "@/gql/graphql";
+import { CommentsList } from "@/ui/molecules/CommentsList";
+import { addCommentAction } from "@/app/product/actions";
 
 export const Comments = ({ productId }: { productId: string }) => {
-	const handleCommentAction = async (formData: FormData) => {
-		"use server";
-		console.dir({ formData }, { depth: null });
-		const { productId, headlines, content, rating, name, email } =
-			Object.fromEntries(
-				Array.from(formData.entries()).map(([key, value]) => [
-					key,
-					String(value),
-				]),
-			);
-		return (
-			productId &&
-			headlines &&
-			content &&
-			rating &&
-			name &&
-			email &&
-			executeGraphql({
-				query: ReviewCreateDocument,
-				variables: {
-					productId: productId,
-					headline: headlines,
-					content: content,
-					rating: Number(rating),
-					name: name,
-					email: email,
-				},
-				cache: "no-store",
-			})
-		);
-		//ReviewCreateDocument
-	};
 	return (
 		<div className="mx-auto max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-8 lg:py-16">
 			<div className="lg:col-span-4">
@@ -65,7 +33,7 @@ export const Comments = ({ productId }: { productId: string }) => {
 						customers
 					</p>
 					<form
-						action={handleCommentAction}
+						action={addCommentAction}
 						data-testid="add-review-form"
 						className="mt-2 flex flex-col gap-y-2"
 					>
@@ -84,9 +52,9 @@ export const Comments = ({ productId }: { productId: string }) => {
 					</form>
 				</div>
 			</div>
-			<div className="mt-16 lg:col-span-7 lg:col-start-6 lg:mt-0">
-				<Comment />
-			</div>
+			<Suspense fallback={<div>Loading...</div>}>
+				<CommentsList productId={productId} />
+			</Suspense>
 		</div>
 	);
 };

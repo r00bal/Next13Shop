@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { getProductById } from "@/api/products";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { ProductPageItemDescription } from "@/ui/atoms/ProductPageItemDescription";
-import { SimilarProducts } from "@/ui/organisms/SimilarProducts";
 import { Comments } from "@/ui/organisms/Comments";
 
 // static build is turned off due to 'changed from static to dynamic at runtime ' error,  reason: cookies
@@ -35,8 +34,9 @@ export default async function ProductPage({
 				{!!product && <ProductPageItemDescription product={product} />}
 			</article>
 
-			<Suspense fallback>{slug && <SimilarProducts slug={slug} />}</Suspense>
-			<Comments productId={productId} />
+			<Suspense fallback>
+				<Comments productId={productId} />
+			</Suspense>
 		</section>
 	);
 }
