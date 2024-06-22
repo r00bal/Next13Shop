@@ -1,8 +1,8 @@
 import { RatingStarsDisplay } from "./RatingStarsDisplay";
-import { type ReviewsGetByIdQuery } from "@/gql/graphql";
+import { type ReviewListItemFragment } from "@/gql/graphql";
 import { Avatar } from "@/ui/atoms/Avatatar";
 
-type CommentProps = { comment: ReviewsGetByIdQuery["reviews"][number] };
+type CommentProps = { comment: ReviewListItemFragment };
 
 export const Comment = ({ comment }: CommentProps) => {
 	const { name, content, rating, createdBy } = comment;

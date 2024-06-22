@@ -1,0 +1,16 @@
+fragment ReviewListItem on Review {
+	id
+	name
+	email
+	content
+	createdAt
+	rating
+	product {
+		id
+		name
+	}
+	createdBy {
+		name
+		picture
+	}
+}

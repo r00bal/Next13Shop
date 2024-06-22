@@ -2,9 +2,16 @@ import { Input } from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
 import { RatingStarsDisplay } from "../molecules/RatingStarsDisplay";
 import { RatingStarsInput } from "../molecules/RatingStarsInput";
+import { type ReviewListItemFragment } from "@/gql/graphql";
 import { addCommentAction } from "@/app/product/actions";
 
-export const CommentsForm = ({ productId }: { productId: string }) => {
+export const CommentsForm = ({
+	productId,
+	onAddReview,
+}: {
+	productId: string;
+	onAddReview: (action: ReviewListItemFragment) => void;
+}) => {
 	return (
 		<div className="mx-auto max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-8 lg:py-16">
 			<div className="lg:col-span-4">

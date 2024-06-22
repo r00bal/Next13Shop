@@ -1,18 +1,5 @@
 query ReviewsGetById($id: ID!) {
 	reviews(where: { product: { id: $id } }, stage: DRAFT) {
-		id
-		name
-		email
-		content
-		createdAt
-		rating
-		product {
-			id
-			name
-		}
-		createdBy {
-			name
-			picture
-		}
+		...ReviewListItem
 	}
 }

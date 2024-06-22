@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { getProductById } from "@/api/products";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { ProductPageItemDescription } from "@/ui/atoms/ProductPageItemDescription";
-import { Comments } from "@/ui/organisms/Comments.1";
+import { Comments } from "@/ui/organisms/Comments";
 
 // static build is turned off due to 'changed from static to dynamic at runtime ' error,  reason: cookies
 // https://nextjs.org/docs/messages/app-static-to-dynamic-error
@@ -19,8 +19,8 @@ export default async function ProductPage({
 	params: { productId },
 }: ProductPageParams) {
 	const product = await getProductById(productId);
-	const { categories } = product || {};
-	const { slug } = categories?.[0] || {};
+	// const { categories } = product || {};
+	// const { slug } = categories?.[0] || {};
 
 	return (
 		<section className="flex flex-grow flex-col">
