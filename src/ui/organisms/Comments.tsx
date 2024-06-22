@@ -16,7 +16,6 @@ export const Comments = ({ productId }: { productId: string }) => {
 				<div className="mt-3 flex items-center">
 					<div title="3.6 out of 5 stars">
 						<RatingStarsDisplay rating={4} />
-
 						<p className="sr-only">3.6 out of 5 stars</p>
 					</div>
 					<p className="ml-2 text-sm text-gray-900">Based on 292 reviews</p>
