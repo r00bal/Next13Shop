@@ -4,22 +4,8 @@ import { TextArea } from "../atoms/TextArea";
 import { RatingStarsDisplay } from "../molecules/RatingStarsDisplay";
 import { RatingStarsInput } from "../molecules/RatingStarsInput";
 import { type CommentType } from "@/api/reviews";
-import { addCommentAction } from "@/app/product/actions";
-
-export const getReviewFormData = (formData: FormData) => {
-	const { productId, headline, content, rating, name, email } =
-		Object.fromEntries(
-			Array.from(formData.entries()).map(([key, value]) => [
-				key,
-				String(value),
-			]),
-		);
-
-	if (!productId || !headline || !content || !rating || !name || !email) {
-		return;
-	}
-	return { productId, headline, content, rating, name, email };
-};
+import { addCommentAction } from "@/api/actions";
+import { getReviewFormData } from "@/api/utils";
 
 export type AddCommentActionT = NonNullable<
 	ReturnType<typeof getReviewFormData>
@@ -57,20 +43,20 @@ export const CommentsForm = ({
 				</p>
 				<form
 					ref={formRef}
-					action={async (formaData) => {
+					action={async (formaData: FormData) => {
 						const newReview = getReviewFormData(formaData);
 						if (!newReview) return;
 						const randomId = Math.random().toString(36).substring(7);
 						onAddReview({
 							id: randomId,
-							name: newReview.name || "",
+							name: newReview.name,
 							content: newReview.content,
-							rating: Number(newReview.rating),
+							rating: newReview.rating,
 							picture: null,
 							headline: newReview.headline,
 						});
 						formRef.current?.reset();
-						await addCommentAction(newReview);
+						await addCommentAction(formaData);
 					}}
 					data-testid="add-review-form"
 					className="mt-2 flex flex-col gap-y-2"
