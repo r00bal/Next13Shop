@@ -7,10 +7,10 @@ export const Cart = async () => {
 		(acc, item) => acc + item.quantity,
 		0,
 	);
-	console.log("Cart quantity", { quantity });
 
 	return (
-		<button className="ml-2 h-8 w-12" type="button">
+		<button className="ml-2 h-8 w-12">
+			{/* @ts-ignore  */}
 			<Link href="/cart" className="flex items-center justify-center">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

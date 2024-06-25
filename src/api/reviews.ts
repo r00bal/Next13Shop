@@ -30,7 +30,6 @@ export const getReviewsList = async ({ id }: { id: string }) => {
 	const grapglResponse = await executeGraphql({
 		query: ReviewsGetByIdDocument,
 		variables: { id },
-		cache: "no-store",
 		next: { tags: ["reviews"] },
 	});
 	const reviews = mapReviewsResponse(grapglResponse?.reviews);

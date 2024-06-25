@@ -37,8 +37,10 @@ export default async function ProductPage({
 				)}
 				{!!product && <ProductPageItemDescription product={product} />}
 			</article>
-			<Suspense fallback>{slug && <SimilarProducts slug={slug} />}</Suspense>
-			<Reviews productId={productId} reviews={reviews} />
+			<Suspense fallback>
+				{slug && <SimilarProducts slug={slug} />}
+				<Reviews productId={productId} reviews={reviews} />
+			</Suspense>
 		</section>
 	);
 }
