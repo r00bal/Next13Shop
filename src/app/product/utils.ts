@@ -1,4 +1,4 @@
-import { type CommentType } from "@/api/reviews";
+import { type ReviewsType } from "@/api/reviews";
 import { type ReviewCreateMutationVariables } from "@/gql/graphql";
 
 export const getReviewFormData = (
@@ -20,7 +20,7 @@ export const getReviewFormData = (
 
 export const createNewReview = (
 	newReview: ReviewCreateMutationVariables,
-): CommentType => {
+): ReviewsType => {
 	return {
 		id: Math.random().toString(36).substring(10),
 		name: newReview.name,

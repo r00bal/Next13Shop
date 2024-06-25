@@ -4,7 +4,7 @@ import { getReviewFormData } from "./utils";
 import { executeGraphql } from "@/api/utils";
 import { ReviewCreateDocument } from "@/gql/graphql";
 
-export const addCommentAction = async (formData: FormData) => {
+export const addReviewsAction = async (formData: FormData) => {
 	const newReview = getReviewFormData(formData);
 	if (!newReview) {
 		return;

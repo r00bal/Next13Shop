@@ -1,11 +1,11 @@
 import { RatingStarsDisplay } from "./RatingStarsDisplay";
-import { type CommentType } from "@/api/reviews";
+import { type ReviewsType } from "@/api/reviews";
 import { Avatar } from "@/ui/atoms/Avatatar";
 
-type CommentProps = { comment: CommentType };
+type ReviewsProps = { review: ReviewsType };
 
-export const Comment = ({ comment }: CommentProps) => {
-	const { name, content, rating, headline, picture } = comment;
+export const Review = ({ review }: ReviewsProps) => {
+	const { name, content, rating, headline, picture } = review;
 	return (
 		<div className="py-12">
 			<div className="flex items-center">

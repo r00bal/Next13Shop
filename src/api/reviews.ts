@@ -4,14 +4,14 @@ import {
 	ReviewsGetByIdDocument,
 } from "@/gql/graphql";
 
-export type CommentType = Pick<
+export type ReviewsType = Pick<
 	ReviewListItemFragment,
 	"id" | "name" | "content" | "rating" | "headline" | "email" | "createdAt"
 > & { picture: NonNullable<ReviewListItemFragment["createdBy"]>["picture"] };
 
 export const mapReviewsResponse = (
 	reviews: ReviewListItemFragment[],
-): CommentType[] => {
+): ReviewsType[] => {
 	return reviews.map(
 		({ id, name, content, email, createdAt, rating, headline, createdBy }) => ({
 			id,
@@ -26,7 +26,7 @@ export const mapReviewsResponse = (
 	);
 };
 
-export const getCommentsList = async ({ id }: { id: string }) => {
+export const getReviewsList = async ({ id }: { id: string }) => {
 	const grapglResponse = await executeGraphql({
 		query: ReviewsGetByIdDocument,
 		variables: { id },

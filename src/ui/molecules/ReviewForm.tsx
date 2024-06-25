@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { Input } from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
-import { RatingStarsDisplay } from "../molecules/RatingStarsDisplay";
-import { RatingStarsInput } from "../molecules/RatingStarsInput";
-import { type CommentType } from "@/api/reviews";
-import { addCommentAction } from "@/app/product/actions";
+import { RatingStarsDisplay } from "./RatingStarsDisplay";
+import { RatingStarsInput } from "./RatingStarsInput";
+import { type ReviewsType } from "@/api/reviews";
+import { addReviewsAction } from "@/app/product/actions";
 import { createNewReview, getReviewFormData } from "@/app/product/utils";
 
-export const CommentsForm = ({
+export const ReviewForm = ({
 	productId,
 	onAddOptimisticReview,
 }: {
 	productId: string;
-	onAddOptimisticReview: (action: CommentType) => void;
+	onAddOptimisticReview: (action: ReviewsType) => void;
 }) => {
 	const [resetFormIndex, setResetFormIndex] = useState(0);
 	return (
@@ -43,9 +43,9 @@ export const CommentsForm = ({
 						const newReviewFormData = getReviewFormData(formaData);
 						// TODO: implement form validation
 						if (!newReviewFormData) return;
-						onAddOptimisticReview(createNewReview(newReviewFormData));
 						setResetFormIndex((state) => state + 1);
-						await addCommentAction(formaData);
+						onAddOptimisticReview(createNewReview(newReviewFormData));
+						await addReviewsAction(formaData);
 					}}
 					data-testid="add-review-form"
 					className="mt-2 flex flex-col gap-y-2"

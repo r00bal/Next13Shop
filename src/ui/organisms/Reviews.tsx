@@ -1,30 +1,30 @@
 "use client";
 import { useOptimistic } from "react";
 
-import { CommentsForm } from "../molecules/CommentsForm";
-import { CommentsList } from "../molecules/CommentsList";
-import { type CommentType } from "@/api/reviews";
+import { ReviewForm } from "../molecules/ReviewForm";
+import { ReviewsList } from "../molecules/ReviewsList";
+import { type ReviewsType } from "@/api/reviews";
 
-export type CommentsProps = {
-	reviews: CommentType[];
+export type ReviewsProps = {
+	reviews: ReviewsType[];
 	productId: string;
 };
 
-export const Comments = ({ productId, reviews }: CommentsProps) => {
+export const Reviews = ({ productId, reviews }: ReviewsProps) => {
 	const [optimisticReviews, addOptimisticReview] = useOptimistic<
-		CommentType[],
-		CommentType
+		ReviewsType[],
+		ReviewsType
 	>(reviews, (state, newReview) => {
 		return [...state, newReview];
 	});
 
 	return (
 		<div className="mx-auto max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-8 lg:py-16">
-			<CommentsForm
+			<ReviewForm
 				productId={productId}
 				onAddOptimisticReview={addOptimisticReview}
 			/>
-			<CommentsList reviews={optimisticReviews} />
+			<ReviewsList reviews={optimisticReviews} />
 		</div>
 	);
 };

@@ -2,9 +2,10 @@ import { Suspense } from "react";
 import { getProductById } from "@/api/products";
 import { ProductCoverImage } from "@/ui/atoms/ProductCoverImage";
 import { ProductPageItemDescription } from "@/ui/atoms/ProductPageItemDescription";
-import { Comments } from "@/ui/organisms/Comments";
-import { getCommentsList } from "@/api/reviews";
+
+import { getReviewsList } from "@/api/reviews";
 import { SimilarProducts } from "@/ui/organisms/SimilarProducts";
+import { Reviews } from "@/ui/organisms/Reviews";
 
 // static build is turned off due to 'changed from static to dynamic at runtime ' error,  reason: cookies
 // https://nextjs.org/docs/messages/app-static-to-dynamic-error
@@ -21,7 +22,7 @@ export default async function ProductPage({
 	params: { productId },
 }: ProductPageParams) {
 	const product = await getProductById(productId);
-	const reviews = await getCommentsList({ id: productId });
+	const reviews = await getReviewsList({ id: productId });
 	const { categories } = product || {};
 	const { slug } = categories?.[0] || {};
 
@@ -37,7 +38,7 @@ export default async function ProductPage({
 				{!!product && <ProductPageItemDescription product={product} />}
 			</article>
 			<Suspense fallback>{slug && <SimilarProducts slug={slug} />}</Suspense>
-			<Comments productId={productId} reviews={reviews} />
+			<Reviews productId={productId} reviews={reviews} />
 		</section>
 	);
 }
