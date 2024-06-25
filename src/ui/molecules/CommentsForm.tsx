@@ -1,24 +1,20 @@
-import { useRef } from "react";
+import { useState } from "react";
 import { Input } from "../atoms/Input";
 import { TextArea } from "../atoms/TextArea";
 import { RatingStarsDisplay } from "../molecules/RatingStarsDisplay";
 import { RatingStarsInput } from "../molecules/RatingStarsInput";
 import { type CommentType } from "@/api/reviews";
-import { addCommentAction } from "@/api/actions";
-import { getReviewFormData } from "@/api/utils";
-
-export type AddCommentActionT = NonNullable<
-	ReturnType<typeof getReviewFormData>
->;
+import { addCommentAction } from "@/app/product/actions";
+import { createNewReview, getReviewFormData } from "@/app/product/utils";
 
 export const CommentsForm = ({
 	productId,
-	onAddReview,
+	onAddOptimisticReview,
 }: {
 	productId: string;
-	onAddReview: (action: CommentType) => void;
+	onAddOptimisticReview: (action: CommentType) => void;
 }) => {
-	const formRef = useRef<HTMLFormElement>(null);
+	const [resetFormIndex, setResetFormIndex] = useState(0);
 	return (
 		<div className="lg:col-span-4">
 			<h2 className="text-2xl font-bold tracking-tight text-gray-900">
@@ -42,20 +38,13 @@ export const CommentsForm = ({
 					If you’ve used this product, share your thoughts with other customers
 				</p>
 				<form
-					ref={formRef}
+					key={resetFormIndex}
 					action={async (formaData: FormData) => {
-						const newReview = getReviewFormData(formaData);
-						if (!newReview) return;
-						const randomId = Math.random().toString(36).substring(7);
-						onAddReview({
-							id: randomId,
-							name: newReview.name,
-							content: newReview.content,
-							rating: newReview.rating,
-							picture: null,
-							headline: newReview.headline,
-						});
-						formRef.current?.reset();
+						const newReviewFormData = getReviewFormData(formaData);
+						// TODO: implement form validation
+						if (!newReviewFormData) return;
+						onAddOptimisticReview(createNewReview(newReviewFormData));
+						setResetFormIndex((state) => state + 1);
 						await addCommentAction(formaData);
 					}}
 					data-testid="add-review-form"

@@ -6,20 +6,24 @@ import {
 
 export type CommentType = Pick<
 	ReviewListItemFragment,
-	"id" | "name" | "content" | "rating" | "headline"
+	"id" | "name" | "content" | "rating" | "headline" | "email" | "createdAt"
 > & { picture: NonNullable<ReviewListItemFragment["createdBy"]>["picture"] };
 
 export const mapReviewsResponse = (
 	reviews: ReviewListItemFragment[],
 ): CommentType[] => {
-	return reviews.map((review) => ({
-		id: review.id,
-		name: review.createdBy?.name || "",
-		content: review.content,
-		rating: review.rating,
-		picture: review.createdBy?.picture || "",
-		headline: review.headline,
-	}));
+	return reviews.map(
+		({ id, name, content, email, createdAt, rating, headline, createdBy }) => ({
+			id,
+			name,
+			content,
+			email,
+			createdAt,
+			rating,
+			headline,
+			picture: createdBy?.picture || "",
+		}),
+	);
 };
 
 export const getCommentsList = async ({ id }: { id: string }) => {

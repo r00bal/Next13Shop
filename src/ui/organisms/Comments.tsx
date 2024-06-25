@@ -20,7 +20,10 @@ export const Comments = ({ productId, reviews }: CommentsProps) => {
 
 	return (
 		<div className="mx-auto max-w-2xl lg:grid lg:max-w-7xl lg:grid-cols-12 lg:gap-x-8 lg:py-16">
-			<CommentsForm productId={productId} onAddReview={addOptimisticReview} />
+			<CommentsForm
+				productId={productId}
+				onAddOptimisticReview={addOptimisticReview}
+			/>
 			<CommentsList reviews={optimisticReviews} />
 		</div>
 	);

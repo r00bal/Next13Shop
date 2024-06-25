@@ -44,18 +44,3 @@ export const executeGraphql = async <TResult, TVariables>({
 
 	return graphqlResponse.data;
 };
-
-export const getReviewFormData = (formData: FormData) => {
-	const { productId, headline, content, rating, name, email } =
-		Object.fromEntries(
-			Array.from(formData.entries()).map(([key, value]) => [
-				key,
-				String(value),
-			]),
-		);
-
-	if (!productId || !headline || !content || !rating || !name || !email) {
-		return;
-	}
-	return { productId, headline, content, rating: Number(rating), name, email };
-};

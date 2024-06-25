@@ -3,17 +3,6 @@
 import { Fragment, useState } from "react";
 import { RatingStar } from "../atoms/RatingStar";
 
-const setInitialRating = (initialRating: number, length: number) =>
-	Array(length)
-		.fill(0)
-		.map((_, i) => {
-			const index = i + 1;
-			return {
-				index: index,
-				checked: index <= initialRating,
-			};
-		});
-
 export const RatingStarsInput = ({
 	initialRating = 0,
 	length = 5,
@@ -65,8 +54,6 @@ export const RatingStarsInput = ({
 			<fieldset className="stars-rating flex flex-row justify-end">
 				{rating.map(({ index, checked }) => {
 					const isChecked = checkedInputNumber === index;
-					console.log({ index, checkedInputNumber, isChecked });
-
 					return (
 						<Fragment key={`rating-fragment-${index}`}>
 							<input
@@ -100,3 +87,14 @@ export const RatingStarsInput = ({
 		</div>
 	);
 };
+
+const setInitialRating = (initialRating: number, length: number) =>
+	Array(length)
+		.fill(0)
+		.map((_, i) => {
+			const index = i + 1;
+			return {
+				index: index,
+				checked: index <= initialRating,
+			};
+		});
