@@ -13,6 +13,7 @@ export const ProductListItem = ({
 	const { url } = images?.[0] || {};
 	return (
 		<li>
+			{/* @ts-ignore */}
 			<Link href={`/product/${product.id}` as Route<string>}>
 				<article>
 					{url && <ProductCoverImage alt={name} src={url} />}
