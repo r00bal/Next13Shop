@@ -10,7 +10,7 @@ export const Cart = async () => {
 
 	return (
 		<button className="ml-2 h-8 w-12">
-			{/* @ts-ignore  */}
+			{/* @ts-ignore  TODO Fix link type */}
 			<Link href="/cart" className="flex items-center justify-center">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"

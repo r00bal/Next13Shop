@@ -23,15 +23,10 @@
 		"import/no-default-export": "error",
 
 		// allow {} even though it's unsafe but comes handy
-		"@typescript-eslint/ban-types": [
+		"@typescript-eslint/ban-ts-comment": [
 			"error",
-			{
-				"types": {
-					"{}": false
-				}
-			}
+			{ "ts-ignore": "allow-with-description" }
 		],
-
 		"@typescript-eslint/consistent-type-imports": [
 			"error",
 			{

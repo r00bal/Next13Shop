@@ -27,7 +27,7 @@ export const CollectionsListItem = ({
 			)}
 
 			<h3 className="mt-2 font-bold text-slate-700">
-				{/* @ts-ignore */}
+				{/* @ts-ignore TODO Fix Link type */}
 				<Link href={`/collections/${slug}`}>
 					<span className="absolute inset-0"></span>
 					{name}

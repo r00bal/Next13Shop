@@ -1,4 +1,5 @@
 import { type Route } from "next";
+import { Suspense } from "react";
 import { Search } from "@/ui/atoms/Search";
 import { Cart } from "@/ui/atoms/Cart";
 import { ActiveLink } from "@/ui/atoms/ActiveLink";
@@ -32,8 +33,9 @@ export const Navbar = async () => {
 			</ul>
 
 			<div className="m-auto flex h-16 w-full items-center justify-end">
-				<Search />
-
+				<Suspense>
+					<Search />
+				</Suspense>
 				<Cart />
 			</div>
 		</nav>
