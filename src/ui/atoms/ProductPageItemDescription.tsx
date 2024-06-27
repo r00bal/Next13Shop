@@ -1,28 +1,12 @@
-import { revalidateTag } from "next/cache";
 import { Dropdown } from "./Dropdown";
 import { AddToCartButton } from "./AddToCartButton";
 import { type VariantFragment, type ProductGetByIdQuery } from "@/gql/graphql";
-import { getOrCreateCart, addProductToCart } from "@/api/cart";
-
-type ProductPageItemProps = {
-	product: Omit<NonNullable<ProductGetByIdQuery["product"]>, "variants"> & {
-		variants: VariantFragment[];
-	};
-};
+import { addToCartAction } from "@/app/product/actions";
 
 export const ProductPageItemDescription = ({
 	product: { id, name, categories, price, description, variants },
 }: ProductPageItemProps) => {
-	async function addProductToCartAction() {
-		"use server";
-		console.log("addProductToCartAction");
-		const cart = await getOrCreateCart();
-		await addProductToCart(cart.id, id, price);
-
-		console.log("revalidateTag");
-
-		revalidateTag("cart");
-	}
+	const addProductToCartAction = addToCartAction.bind(null, id, price);
 	return (
 		<form action={addProductToCartAction} className="flex flex-col px-6">
 			<h1 className="text-3xl font-bold tracking-tight text-slate-900">
@@ -69,4 +53,10 @@ export const ProductPageItemDescription = ({
 			</div>
 		</form>
 	);
+};
+
+type ProductPageItemProps = {
+	product: Omit<NonNullable<ProductGetByIdQuery["product"]>, "variants"> & {
+		variants: VariantFragment[];
+	};
 };
