@@ -17,14 +17,17 @@ export const ReviewForm = ({
 	const [resetFormIndex, setResetFormIndex] = useState(0);
 	return (
 		<div className="lg:col-span-4">
+			{/* TODO Move this description reviews content to the revies compoennt */}
 			<h2 className="text-2xl font-bold tracking-tight text-gray-900">
 				Customer Reviews
 			</h2>
 			<div className="mt-3 flex items-center">
+				{/* TODO Add avrage rating */}
 				<div title="3.6 out of 5 stars">
 					<RatingStarsDisplay rating={4} />
 					<p className="sr-only">3.6 out of 5 stars</p>
 				</div>
+
 				<p className="ml-2 text-sm text-gray-900">Based on 292 reviews</p>
 			</div>
 			<div className="mt-6">

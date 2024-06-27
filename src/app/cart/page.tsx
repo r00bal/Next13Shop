@@ -8,11 +8,8 @@ import { getCartFromCookies } from "@/api/cart";
 
 export default async function CartPage() {
 	const cart = await getCartFromCookies();
-	const quantity = cart?.orderItems?.reduce(
-		(acc, item) => acc + item.quantity,
-		0,
-	);
-	console.log("CartPage", { quantity, cart });
+
+	//TODO add cart as parel route to the product page and shpw it as a left side modal
 
 	if (!cart) {
 		redirect("/");
