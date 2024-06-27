@@ -21,6 +21,8 @@ export function ChangeQuantity({
 				className="h-6 w-6 border"
 				type="submit"
 				formAction={async () => {
+					// TODO - make the function for increasing and decreasing the quantity
+					// TODO - remove item from cart if quantity is 0
 					setOptimisticQuantity(optimisticQuantity - 1);
 					await changeItemQuantity({
 						id: itemId,
