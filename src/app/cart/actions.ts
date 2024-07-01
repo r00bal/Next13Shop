@@ -11,6 +11,7 @@ import {
 	type CartSetProductQuantityMutationVariables,
 } from "@/gql/graphql";
 
+// TODO add removing item and cart when quantity 0
 export const removeItem = (itemId: string) => {
 	return executeGraphql({
 		query: CartRemoveProductDocument,
