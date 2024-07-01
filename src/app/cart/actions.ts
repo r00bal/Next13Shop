@@ -25,6 +25,9 @@ export const changeItemQuantity = async ({
 	id,
 	quantity,
 }: CartSetProductQuantityMutationVariables) => {
+	if (quantity <= 0) {
+		return removeItem(id);
+	}
 	return executeGraphql({
 		query: CartSetProductQuantityDocument,
 		variables: {
