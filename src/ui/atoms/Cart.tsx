@@ -7,7 +7,10 @@ export const Cart = async () => {
 		(acc, item) => acc + item.quantity,
 		0,
 	);
-
+	// if (quantity === 0 && cart?.id) {
+	// 	console.log("Remove cart and cookie");
+	// 	await removeCart(cart.id);
+	// }
 	return (
 		<button className="ml-2 h-8 w-12">
 			{/* @ts-ignore  TODO Fix link type */}

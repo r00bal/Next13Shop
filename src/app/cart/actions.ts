@@ -6,6 +6,7 @@ import Stripe from "stripe";
 import { getCartFromCookies } from "@/api/cart";
 import { executeGraphql } from "@/api/utils";
 import {
+	CartDeleteDocument,
 	CartRemoveProductDocument,
 	CartSetProductQuantityDocument,
 	type CartSetProductQuantityMutationVariables,
@@ -17,6 +18,17 @@ export const removeItem = (itemId: string) => {
 		query: CartRemoveProductDocument,
 		variables: {
 			itemId,
+		},
+		cache: "no-store",
+	});
+};
+
+export const removeCart = (id: string) => {
+	cookies().delete("cartId");
+	return executeGraphql({
+		query: CartDeleteDocument,
+		variables: {
+			id,
 		},
 		cache: "no-store",
 	});
